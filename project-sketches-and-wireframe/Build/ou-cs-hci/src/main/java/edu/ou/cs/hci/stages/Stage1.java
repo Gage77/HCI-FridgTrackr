@@ -20,6 +20,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 //******************************************************************************
 
 /**
@@ -54,7 +55,7 @@ public final class Stage1
 	{
 		message = "Build Test";	// Could use an arg for this
 
-		JFrame			frame = new JFrame("Fridge Program");
+		JFrame			frame = new JFrame("FridgTrackr");
 
 		JPanel			recipes = new JPanel(new BorderLayout());
 		JPanel			fridge = new JPanel(new BorderLayout());
@@ -77,11 +78,18 @@ public final class Stage1
 		//frame.getContentPane().add(groceries, BorderLayout.LINE_END);
 
 		JPanel center = new JPanel(new GridLayout(1, 3));
-		center.add(recipes);
-		center.add(fridge);
-		center.add(groceries);
+		//center.add(recipes);
+		//center.add(fridge);
+		//center.add(groceries);
+		JTabbedPane tabs = new JTabbedPane();
+		ImageIcon fridgeIcon = new ImageIcon("fridge.png");
+		tabs.addTab("Fridge", fridgeIcon, fridge);
+		ImageIcon recipesIcon = new ImageIcon("recipes.png");
+		tabs.addTab("Recipes", recipesIcon, recipes);
+		ImageIcon groceriesIcon = new ImageIcon("groceries.png");
+		tabs.addTab("Groceries", groceriesIcon, groceries);
 		
-		frame.getContentPane().add(center, BorderLayout.CENTER);
+		frame.getContentPane().add(tabs, BorderLayout.CENTER);
 		//adds the scroll window
 		 String[] colName = new String[] {"Name" ,"Amount", "Delete"};
         Object[][] products = new Object[][] {
