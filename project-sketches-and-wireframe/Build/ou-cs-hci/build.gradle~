@@ -107,7 +107,7 @@ createScript(project, 'edu.ou.cs.hci.stages.BuildTest', 'build-test', altJvmArgs
 // You'll need to uncomment these incrementally for future assignments. For each
 // one, put the fully qualified classname of the class with main() in the second
 // argument and the desired program name in the third argument.
-createScript(project, 'edu.ou.cs.hci.stages.Stage1', 'stage1', altJvmArgs)
+//createScript(project, 'edu.ou.cs.hci.stages.Stage1', 'stage1', altJvmArgs)
 //createScript(project, 'edu.ou.cs.hci.stages.Stage2', 'stage2', altJvmArgs)
 //createScript(project, 'edu.ou.cs.hci.stages.Stage3', 'stage3', altJvmArgs)
 

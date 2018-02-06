@@ -72,10 +72,16 @@ public final class Stage1
 		//creates the main window
 		frame.setBounds(50, 50, 600, 600);
 		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(recipes, BorderLayout.LINE_START);
-		frame.getContentPane().add(fridge, BorderLayout.CENTER);
-		frame.getContentPane().add(groceries, BorderLayout.LINE_END);
+		//frame.getContentPane().add(recipes, BorderLayout.LINE_START);
+		//frame.getContentPane().add(fridge, BorderLayout.CENTER);
+		//frame.getContentPane().add(groceries, BorderLayout.LINE_END);
 
+		JPanel center = new JPanel(new GridLayout(1, 3));
+		center.add(recipes);
+		center.add(fridge);
+		center.add(groceries);
+		
+		frame.getContentPane().add(center, BorderLayout.CENTER);
 		//adds the scroll window
 		 String[] colName = new String[] {"Name" ,"Amount", "Delete"};
         Object[][] products = new Object[][] {
@@ -106,6 +112,26 @@ public final class Stage1
         JTable table2 = new JTable( products2, colName2);
         recipes.add( new JScrollPane(table2));
 
+		// FILTER PANEL
+		JPanel			filterPanel = new JPanel(new FlowLayout());
+		JCheckBox		favoritesBox = new JCheckBox();
+		JLabel			favoritesLabel = new JLabel("Favorites");
+		JCheckBox		expiredBox = new JCheckBox();
+		JLabel			expiredLabel = new JLabel("Expired");
+		JCheckBox		lowBox = new JCheckBox();
+		JLabel			lowLabel = new JLabel("Low Stock");
+		JCheckBox		leftoversBox = new JCheckBox();
+		JLabel			leftoversLabel = new JLabel("Leftovers");
+		filterPanel.add(favoritesBox);
+		filterPanel.add(favoritesLabel);
+		filterPanel.add(expiredBox);
+		filterPanel.add(expiredLabel);
+		filterPanel.add(lowBox);
+		filterPanel.add(lowLabel);
+		filterPanel.add(leftoversBox);
+		filterPanel.add(leftoversLabel);
+		frame.getContentPane().add(filterPanel, BorderLayout.NORTH);
+        
         //adds the add buttons
         fridge.add(fAdd, BorderLayout.PAGE_END);
         recipes.add(rAdd, BorderLayout.PAGE_END);
