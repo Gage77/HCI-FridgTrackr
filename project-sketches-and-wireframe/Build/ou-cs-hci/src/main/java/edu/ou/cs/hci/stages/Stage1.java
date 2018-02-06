@@ -77,17 +77,19 @@ public final class Stage1
 		//frame.getContentPane().add(fridge, BorderLayout.CENTER);
 		//frame.getContentPane().add(groceries, BorderLayout.LINE_END);
 
-		JPanel center = new JPanel(new GridLayout(1, 3));
+		//JPanel center = new JPanel(new GridLayout(1, 3));
 		//center.add(recipes);
 		//center.add(fridge);
 		//center.add(groceries);
 		JTabbedPane tabs = new JTabbedPane();
-		ImageIcon fridgeIcon = new ImageIcon("fridge.png");
-		tabs.addTab("Fridge", fridgeIcon, fridge);
-		ImageIcon recipesIcon = new ImageIcon("recipes.png");
-		tabs.addTab("Recipes", recipesIcon, recipes);
-		ImageIcon groceriesIcon = new ImageIcon("groceries.png");
-		tabs.addTab("Groceries", groceriesIcon, groceries);
+		//ImageIcon icon = createImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
+		//ImageIcon fridgeIcon = new ImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
+		ImageIcon fridgeIcon = new ImageIcon(Stage1.class.getResource("fridge.png"));
+		tabs.addTab(" Fridge", fridgeIcon, fridge);
+		ImageIcon recipesIcon = new ImageIcon(Stage1.class.getResource("recipes.png"));
+		tabs.addTab(" Recipes", recipesIcon, recipes);
+		ImageIcon groceriesIcon = new ImageIcon(Stage1.class.getResource("groceries.png"));
+		tabs.addTab(" Groceries", groceriesIcon, groceries);
 		
 		frame.getContentPane().add(tabs, BorderLayout.CENTER);
 		//adds the scroll window
