@@ -86,7 +86,7 @@ public final class Stage1
 		//ImageIcon fridgeIcon = new ImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
 		ImageIcon fridgeIcon = new ImageIcon(Stage1.class.getResource("fridge.png"));
 		tabs.addTab(" Fridge", fridgeIcon, fridge);
-		ImageIcon recipesIcon = new ImageIcon(Stage1.class.getResource("recipes.png"));
+		ImageIcon recipesIcon = new ImageIcon(Stage1.class.getResource("contract.png"));
 		tabs.addTab(" Recipes", recipesIcon, recipes);
 		ImageIcon groceriesIcon = new ImageIcon(Stage1.class.getResource("groceries.png"));
 		tabs.addTab(" Groceries", groceriesIcon, groceries);
