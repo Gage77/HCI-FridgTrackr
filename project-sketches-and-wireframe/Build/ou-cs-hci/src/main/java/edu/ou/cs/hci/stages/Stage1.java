@@ -81,6 +81,7 @@ public final class Stage1
 		JTabbedPane tabs = new JTabbedPane();
 		//ImageIcon icon = createImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
 		//ImageIcon fridgeIcon = new ImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
+<<<<<<< HEAD
 
 		// Set icons for tabs
 		Icon fridgeIcon = new ImageIcon(Stage1.class.getResource("fridgesmall.png"));
@@ -91,6 +92,7 @@ public final class Stage1
 		tabs.addTab("Recipes", recipesIcon, recipes);
 		tabs.addTab("Groceries", groceriesIcon, groceries);
 
+>>>>>>> 09a215bf57074dc5473057b6248d8c0053823862
 		frame.getContentPane().add(tabs, BorderLayout.CENTER);
 		//adds the scroll window
 		 String[] colName = new String[] {"Name" ,"Amount", "Delete"};
