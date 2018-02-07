@@ -20,109 +20,96 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-
-//******************************************************************************
-
 /**
  * The <CODE>BuildTest</CODE> class.<P>
  *
  * @author  Chris Weaver
  * @version %I%, %G%
  */
+
 public final class Stage1
 {
-	//**********************************************************************
-	// Public Class Members
-	//**********************************************************************
-
+	//Public Class Members
 	private static final Font	FONT =
 		new Font(Font.SERIF, Font.ITALIC, 36);
 	private static final Color	FILL_COLOR = Color.YELLOW;
 	private static final Color	EDGE_COLOR = Color.RED;
 
-	//**********************************************************************
-	// Private Members
-	//**********************************************************************
-
-	// State (internal) variables
-
-	//**********************************************************************
-	// Main
-	//**********************************************************************
-
+	//main
 	public static void main(String[] args)
 	{
+		//creates the base JFrame on which everything will be displayed
 		JFrame			frame = new JFrame("FridgTrackr");
 
+		//creates the 3 category panels
 		JPanel			recipes = new JPanel(new BorderLayout());
 		JPanel			fridge = new JPanel(new BorderLayout());
 		JPanel			groceries = new JPanel(new BorderLayout());
 
+		//adds a button to each of the 3 category panels so new data can e added
 		JButton			rAdd = new JButton("add");
 		JButton			fAdd = new JButton("add");
 		JButton			gAdd = new JButton("add");
 
-		//adds a title to each scroll section
+		//adds a title to each category panel
 		recipes.setBorder(BorderFactory.createTitledBorder("recipes"));
 		fridge.setBorder(BorderFactory.createTitledBorder("fridge"));
 		groceries.setBorder(BorderFactory.createTitledBorder("groceries"));
 
-		//creates the main window
+		//sets the defualt size of the main window
 		frame.setBounds(50, 50, 600, 600);
 		frame.getContentPane().setLayout(new BorderLayout());
-		//frame.getContentPane().add(recipes, BorderLayout.LINE_START);
-		//frame.getContentPane().add(fridge, BorderLayout.CENTER);
-		//frame.getContentPane().add(groceries, BorderLayout.LINE_END);
 
-		//JPanel center = new JPanel(new GridLayout(1, 3));
-		//center.add(recipes);
-		//center.add(fridge);
-		//center.add(groceries);
+		//creates the pane that will store the category tabs
 		JTabbedPane tabs = new JTabbedPane();
-		//ImageIcon icon = createImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
-		//ImageIcon fridgeIcon = new ImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
-
-		// Set icons for tabs
+		//sets icons for tabs
 		Icon fridgeIcon = new ImageIcon(Stage1.class.getResource("fridgesmall.png"));
 		Icon recipesIcon = new ImageIcon(Stage1.class.getResource("recipessmall.png"));
 		Icon groceriesIcon = new ImageIcon(Stage1.class.getResource("groceriessmall.png"));
-		// Add tabs to JTabbedPane
+		//adds tabs to JTabbedPane
 		tabs.addTab("Fridge", fridgeIcon, fridge);
 		tabs.addTab("Recipes", recipesIcon, recipes);
 		tabs.addTab("Groceries", groceriesIcon, groceries);
-
+		//adds the JTabbedPane to the base pane
 		frame.getContentPane().add(tabs, BorderLayout.CENTER);
-		//adds the scroll window
-		 String[] colName = new String[] {"Name" ,"Amount", "Delete"};
-        Object[][] products = new Object[][] {
+
+		//creates the content of the fridge category panel
+		String[] colName = new String[] {"Name" ,"Amount", "Delete"};
+		Object[][] products = new Object[][] {
                 { "Apples" ,"15", "[x]" },
                 { "Oranges" ,"20", "[x]"},
                 { "Peaches" ,"10", "[x]"},
-            };
+							};
+		//creates a table to hold the fridge panel data
+    JTable fridgeTable = new JTable( products, colName );
+		//adds the data panel to the fridge category panel
+		fridge.add(new JScrollPane(fridgeTable));
 
-        JTable table = new JTable( products, colName );
-		fridge.add( new JScrollPane( table ) );
-
+		//creates the content of the groceries category panel
 		String[] colName1 = new String[] {"Name" ,"Amount", "Delete"};
-			 Object[][] products1 = new Object[][] {
+		Object[][] products1 = new Object[][] {
 							 { "Apples" ,"15", "[x]" },
 							 { "Oranges" ,"20", "[x]"},
 							 { "Peaches" ,"10", "[x]"},
-					 };
-
-			 JTable table1 = new JTable( products1, colName1 );
+						 };
+		//creates a table to hold the groceries panel data
+		JTable table1 = new JTable( products1, colName1 );
+		//adds the data panel to the fridge category panel
 		groceries.add(new JScrollPane(table1) );
 
-		 String[] colName2 = new String[] {"Name","Delete"};
-        Object[][] products2 = new Object[][] {
+		//creates the content of the recipes category panel
+		String[] colName2 = new String[] {"Name","Delete"};
+    Object[][] products2 = new Object[][] {
                 { "Grilled Cheese", "[x]" },
                 { "Pizza", "[x]" },
                 { "Mac & Cheese", "[x]" },
             };
-        JTable table2 = new JTable( products2, colName2);
-        recipes.add( new JScrollPane(table2));
+		//creates a table to hold the recipes panel data
+		JTable table2 = new JTable( products2, colName2);
+		//adds the data panel to the recipes category panel
+    recipes.add( new JScrollPane(table2));
 
-		// FILTER PANEL
+		//creates the filters
 		JPanel			filterPanel = new JPanel(new FlowLayout());
 		JCheckBox		favoritesBox = new JCheckBox();
 		JLabel			favoritesLabel = new JLabel("Favorites");
@@ -133,6 +120,7 @@ public final class Stage1
 		JCheckBox		leftoversBox = new JCheckBox();
 		JLabel			leftoversLabel = new JLabel("Leftovers");
 
+		//adds the filters to the filter panel
 		filterPanel.add(favoritesBox);
 		filterPanel.add(favoritesLabel);
 		filterPanel.add(expiredBox);
@@ -141,13 +129,15 @@ public final class Stage1
 		filterPanel.add(lowLabel);
 		filterPanel.add(leftoversBox);
 		filterPanel.add(leftoversLabel);
+		//adds the filter panel to the base frame
 		frame.getContentPane().add(filterPanel, BorderLayout.NORTH);
 
-        //adds the add buttons
-        fridge.add(fAdd, BorderLayout.PAGE_END);
-        recipes.add(rAdd, BorderLayout.PAGE_END);
-        groceries.add(gAdd, BorderLayout.PAGE_END);
+    //adds the add buttons
+    fridge.add(fAdd, BorderLayout.PAGE_END);
+    recipes.add(rAdd, BorderLayout.PAGE_END);
+    groceries.add(gAdd, BorderLayout.PAGE_END);
 
+		//sets the base frame to visible & to end on exit
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
