@@ -45,7 +45,6 @@ public final class Stage1
 	//**********************************************************************
 
 	// State (internal) variables
-	private static String		message;
 
 	//**********************************************************************
 	// Main
@@ -53,8 +52,6 @@ public final class Stage1
 
 	public static void main(String[] args)
 	{
-		message = "Build Test";	// Could use an arg for this
-
 		JFrame			frame = new JFrame("FridgTrackr");
 
 		JPanel			recipes = new JPanel(new BorderLayout());
@@ -84,13 +81,16 @@ public final class Stage1
 		JTabbedPane tabs = new JTabbedPane();
 		//ImageIcon icon = createImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
 		//ImageIcon fridgeIcon = new ImageIcon("https://cdn1.iconfinder.com/data/icons/food-vol-2/48/071-512.png");
-		ImageIcon fridgeIcon = new ImageIcon(Stage1.class.getResource("fridge.png"));
-		tabs.addTab(" Fridge", fridgeIcon, fridge);
-		ImageIcon recipesIcon = new ImageIcon(Stage1.class.getResource("recipes.png"));
-		tabs.addTab(" Recipes", recipesIcon, recipes);
-		ImageIcon groceriesIcon = new ImageIcon(Stage1.class.getResource("groceries.png"));
-		tabs.addTab(" Groceries", groceriesIcon, groceries);
-		
+
+		// Set icons for tabs
+		Icon fridgeIcon = new ImageIcon(Stage1.class.getResource("fridgesmall.png"));
+		Icon recipesIcon = new ImageIcon(Stage1.class.getResource("recipessmall.png"));
+		Icon groceriesIcon = new ImageIcon(Stage1.class.getResource("groceriessmall.png"));
+		// Add tabs to JTabbedPane
+		tabs.addTab("Fridge", fridgeIcon, fridge);
+		tabs.addTab("Recipes", recipesIcon, recipes);
+		tabs.addTab("Groceries", groceriesIcon, groceries);
+
 		frame.getContentPane().add(tabs, BorderLayout.CENTER);
 		//adds the scroll window
 		 String[] colName = new String[] {"Name" ,"Amount", "Delete"};
@@ -132,6 +132,7 @@ public final class Stage1
 		JLabel			lowLabel = new JLabel("Low Stock");
 		JCheckBox		leftoversBox = new JCheckBox();
 		JLabel			leftoversLabel = new JLabel("Leftovers");
+
 		filterPanel.add(favoritesBox);
 		filterPanel.add(favoritesLabel);
 		filterPanel.add(expiredBox);
@@ -141,7 +142,7 @@ public final class Stage1
 		filterPanel.add(leftoversBox);
 		filterPanel.add(leftoversLabel);
 		frame.getContentPane().add(filterPanel, BorderLayout.NORTH);
-        
+
         //adds the add buttons
         fridge.add(fAdd, BorderLayout.PAGE_END);
         recipes.add(rAdd, BorderLayout.PAGE_END);
