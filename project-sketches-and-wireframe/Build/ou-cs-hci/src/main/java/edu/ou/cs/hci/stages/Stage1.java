@@ -63,9 +63,9 @@ public final class Stage1
 		//creates the pane that will store the category tabs
 		JTabbedPane tabs = new JTabbedPane();
 		//sets icons for tabs
-		Icon fridgeIcon = new ImageIcon(Stage1.class.getResource("fridgesmall.png"));
-		Icon recipesIcon = new ImageIcon(Stage1.class.getResource("recipessmall.png"));
-		Icon groceriesIcon = new ImageIcon(Stage1.class.getResource("groceriessmall.png"));
+		Icon fridgeIcon = new ImageIcon(Stage1.class.getResource("refrigerator.png"));
+		Icon recipesIcon = new ImageIcon(Stage1.class.getResource("contract.png"));
+		Icon groceriesIcon = new ImageIcon(Stage1.class.getResource("groceries.png"));
 		//adds tabs to JTabbedPane
 		tabs.addTab("Fridge", fridgeIcon, fridge);
 		tabs.addTab("Recipes", recipesIcon, recipes);
