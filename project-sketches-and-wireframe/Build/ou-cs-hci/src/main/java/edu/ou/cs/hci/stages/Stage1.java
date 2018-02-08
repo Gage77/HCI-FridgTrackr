@@ -81,7 +81,7 @@ public final class Stage1
                 { "Peaches" ,"10", "[x]"},
 							};
 		//creates a table to hold the fridge panel data
-    JTable fridgeTable = new JTable( products, colName );
+    	JTable fridgeTable = new JTable( products, colName );
 		//adds the data panel to the fridge category panel
 		fridge.add(new JScrollPane(fridgeTable));
 
@@ -99,7 +99,7 @@ public final class Stage1
 
 		//creates the content of the recipes category panel
 		String[] colName2 = new String[] {"Name","Delete"};
-    Object[][] products2 = new Object[][] {
+    	Object[][] products2 = new Object[][] {
                 { "Grilled Cheese", "[x]" },
                 { "Pizza", "[x]" },
                 { "Mac & Cheese", "[x]" },
@@ -107,7 +107,7 @@ public final class Stage1
 		//creates a table to hold the recipes panel data
 		JTable table2 = new JTable( products2, colName2);
 		//adds the data panel to the recipes category panel
-    recipes.add( new JScrollPane(table2));
+    	recipes.add( new JScrollPane(table2));
 
 		//creates the filters
 		JPanel			filterPanel = new JPanel(new FlowLayout());
@@ -132,10 +132,10 @@ public final class Stage1
 		//adds the filter panel to the base frame
 		frame.getContentPane().add(filterPanel, BorderLayout.NORTH);
 
-    //adds the add buttons
-    fridge.add(fAdd, BorderLayout.PAGE_END);
-    recipes.add(rAdd, BorderLayout.PAGE_END);
-    groceries.add(gAdd, BorderLayout.PAGE_END);
+    	//adds the add buttons
+    	fridge.add(fAdd, BorderLayout.PAGE_END);
+    	recipes.add(rAdd, BorderLayout.PAGE_END);
+    	groceries.add(gAdd, BorderLayout.PAGE_END);
 
 		//sets the base frame to visible & to end on exit
 		frame.setVisible(true);
