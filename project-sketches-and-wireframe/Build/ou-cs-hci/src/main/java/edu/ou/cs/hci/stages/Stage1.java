@@ -19,6 +19,8 @@ package edu.ou.cs.hci.stages;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.ArrayList;
+import edu.ou.cs.hci.resources.Resources;
 
 /**
  * The <CODE>BuildTest</CODE> class.<P>
@@ -40,6 +42,10 @@ public final class Stage1
 	{
 		//creates the base JFrame on which everything will be displayed
 		JFrame			frame = new JFrame("FridgTrackr");
+
+		//create the scenarios frame with relevant information. Comment
+		//out the below line to not generate Scenarios frame
+		createScenarios();
 
 		//creates the 3 category panels
 		JPanel			recipes = new JPanel(new BorderLayout());
@@ -146,6 +152,129 @@ public final class Stage1
 					System.exit(0);
 				}
 			});
+	}
+
+	/*************************************
+	*	Create scenarios frame with relavent information
+	* from /hci/resources/scenarios and
+	* /hci/resources/personas
+	*************************************/
+	public static void createScenarios()
+	{
+		//scenarios and personas JFrame
+		JFrame spFrame = new JFrame("Scenarios");
+
+		//sets the defualt size of the main window
+		spFrame.setBounds(700, 50, 600, 400);
+		spFrame.getContentPane().setLayout(new BorderLayout());
+
+		//get titles of scenarios from /resources/scenarios/titles.txt using
+		//Resources.java
+		ArrayList<String> sTitles = Resources.getLines("scenarios/titles.txt");
+			//handle potential null error by displaying error message in JList
+			if (sTitles.get(0) == null)
+			{
+				sTitles.set(0, "ERROR: No data found in provided path");
+			}
+
+		//get descriptions of scenarios from /resources/scenarios/descriptions.txt
+		//using Resources.java
+		ArrayList<String> sDescription = Resources.getLines("scenarios/descriptions.txt");
+			//handle potential null error by displaying error message in JTextArea
+			if (sDescription.get(0) == null)
+			{
+				sDescription.set(0, "ERROR: No data found in provided path");
+			}
+
+		//create and populate scenarios title jlist for right side of split pane
+		//also ensure that JList is SINGLE_SELECTION
+		JList<Scenario> scenarioTitle = new JList<Scenario>();
+		DefaultListModel<Scenario> model = new DefaultListModel<>();
+		scenarioTitle.setModel(model);
+		scenarioTitle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		//create non-editable text area for right side of split pane
+		//also ensure that JTextArea is not editable
+		JTextArea scenarioText = new JTextArea();
+		scenarioText.setEditable(false);
+		scenarioText.setLineWrap(true);
+		scenarioText.setWrapStyleWord(true);
+
+		//populate JList scenarioTitle with Scenario objects created from
+		//ArrayList's sTitles and sDescription
+		for (int i = 0; i < sTitles.size(); i++)
+		{
+			model.addElement(new Scenario(sTitles.get(i), sDescription.get(i)));
+		}
+
+		//add listener to update stuff and thangs in the JTextArea
+		scenarioTitle.getSelectionModel().addListSelectionListener(e -> {
+			scenarioText.setText(null);
+			Scenario s = scenarioTitle.getSelectedValue();
+			scenarioText.append("Description: \n" + s.getDescription());
+		});
+
+		// Select the first title by default
+		scenarioTitle.setSelectedIndex(0);
+
+		//create split pane
+		JSplitPane scenarioPane =
+			new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(scenarioTitle), scenarioText);
+
+		//main panel
+		JPanel scenariosPanel = new JPanel(new BorderLayout());
+		scenariosPanel.add(scenarioPane, BorderLayout.CENTER);
+
+		//add dat stuff to da frame
+		spFrame.add(scenariosPanel, BorderLayout.CENTER);
+
+		spFrame.setVisible(true);
+		spFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
+	/*************************************
+	*	Private class to hold Scenario information
+	* including the title and a relavent description
+	*************************************/
+	private static class Scenario
+	{
+		String title;	// Title of scenario
+		String description;	// Description of scenario
+
+		// Base constructor
+		public Scenario(String t, String d)
+		{
+			title = t;
+			description = d;
+		}
+
+		// Getters and setters
+		public String getTitle()
+		{
+			return title;
+		}
+
+		public String getDescription()
+		{
+			return description;
+		}
+
+		public void setTitle(String t)
+		{
+			title = t;
+		}
+
+		public void setDescription(String d)
+		{
+			description = d;
+		}
+
+		// Override toString method to just show the scenario title
+		@Override
+		public String toString()
+		{
+			return title;
+		}
 	}
 
 }
