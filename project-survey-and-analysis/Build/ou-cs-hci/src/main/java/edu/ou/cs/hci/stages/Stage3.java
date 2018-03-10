@@ -233,27 +233,7 @@ public final class Stage3
 	listPane.add(scenarios, BorderLayout.CENTER);
 	descriptPane.add(descriptions, BorderLayout.CENTER);
 	
-	
-	
-	//SURVEY WINDOW
-
-
-	/*
-	BufferedWriter output = null;
-    try {
-        File file = new File("example.txt");
-        output = new BufferedWriter(new FileWriter(file));
-        output.write(text);
-    } catch ( IOException e ) {
-        e.printStackTrace();
-    } finally {
-      if ( output != null ) {
-        output.close();
-      }
-    }
-    */
-	
-	JFrame			survey 	= new JFrame("Survey 1.1");
+	JFrame			survey 	= new JFrame("Survey and Analysis");
 	survey.setBounds(50, 50, 850, 700);
 	survey.getContentPane().setLayout(new BorderLayout());
 	
@@ -269,18 +249,16 @@ public final class Stage3
 	mainPane.add(questionPane1);
 	
 	//Question 1 Responses
-	JLabel			question1	= new JLabel(" 1) Select options that you would find helpful?");
-	JCheckBox		box1 = new JCheckBox("Being reminded when food in your kitchen is going to expire");
-	JCheckBox		box2 = new JCheckBox("Having a constantly updated list of your personal recipes that could be made using ingredients in your kitchen ");
-	JCheckBox		box3 = new JCheckBox("Having a constantly updated record of how much money you’ve spent on groceries (i.e. monthly expenses, weekly expenses) ");
-	JCheckBox		box4 = new JCheckBox("Being able to export your food quantities, grocery expenses, and/or recipies into a printable document");
+	JLabel			question1	= new JLabel("Q1: Which of these, in your opinion, is the biggest problem?");
+	JCheckBox		box1 = new JCheckBox("Not knowing what foods I have to make meals with");
+	JCheckBox		box2 = new JCheckBox("Not knowing what I need to go grocery shopping for");
+	JCheckBox		box3 = new JCheckBox("Accidentally letting my food go bad");
 	
 	//Q1 add	
 	questionPane1.add(question1);
 	questionPane1.add(box1);
 	questionPane1.add(box2);
 	questionPane1.add(box3);
-	questionPane1.add(box4);
 	
 	
 	//RANGE
@@ -288,7 +266,7 @@ public final class Stage3
 	range.setBorder(BorderFactory.createLineBorder(Color.black));
 	mainPane.add(range);
 	
-	JLabel question = new JLabel(" 2) How much of the food that you buy would you estimate that you waste/throw out?");
+	JLabel question = new JLabel("Q2: How much of the food that you buy would you estimate that you waste/throw out?");
 
 	range.add(question);
 	JRadioButton button1 = new JRadioButton("0-10%");
@@ -312,7 +290,7 @@ public final class Stage3
     JPanel spinPanel = new JPanel(new BorderLayout());
     mainPane.add(spinPanel);
     //adds the questions text
-    JLabel spinQuestion = new JLabel(" 3) On average, how many bags of groceries do you buy a week?");
+    JLabel spinQuestion = new JLabel("Q3: How many people do you share a kitchen with?");
     //creates the spinner model
     SpinnerNumberModel bagModel = new SpinnerNumberModel(0 /*default*/, 0 /*min*/, 100/*max*/, 1/*incr.*/);
     //creates spinner
@@ -325,13 +303,12 @@ public final class Stage3
     spinPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     
     
-    
     JPanel			questPanel = new JPanel();
     questPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     mainPane.add(questPanel);
     GridLayout		questionLayout = new GridLayout(2,1);
     questPanel.setLayout(questionLayout);
-    JTextArea		questionArea = new JTextArea(" 4) If you could, what information would you like to always know about "
+    JTextArea		questionArea = new JTextArea("Q4: If you could, what information would you like to always know about "
     				+ "your kitchen, in order of importance? For example food stock, expiration dates, etc.");
     questionArea.setEditable(false);
     questionArea.setLineWrap(true);
@@ -357,11 +334,11 @@ public final class Stage3
  	// Create labels for slider in hashtable. Integer value corresponds to its
  	// cooresponding location on slider
  	Hashtable<Integer, JLabel> sliderTable = new Hashtable<Integer, JLabel>();
- 	sliderTable.put(new Integer(0), new JLabel("Not Useful at All"));
- 	sliderTable.put(new Integer(1), new JLabel("Kind of Useful"));
+ 	sliderTable.put(new Integer(0), new JLabel("Very Displeased"));
+ 	sliderTable.put(new Integer(1), new JLabel("Somewhat Displeased"));
  	sliderTable.put(new Integer(2), new JLabel("Neutral"));
- 	sliderTable.put(new Integer(3), new JLabel("Useful"));
- 	sliderTable.put(new Integer(4), new JLabel("Extremely Useful"));
+ 	sliderTable.put(new Integer(3), new JLabel("Relatively Pleased"));
+ 	sliderTable.put(new Integer(4), new JLabel("Very Pleased"));
 
  	// Add labels to slider
  	usefullnessSlider.setLabelTable(sliderTable);
@@ -372,9 +349,8 @@ public final class Stage3
  	usefullnessSlider.setPaintLabels(true);
 
  	// Setup the question
- 	String scaleQuestionText = "<html> 5) How useful would an application that keeps "
- 		+ "track of the items in your fridge and pantry <BR> and allows you to set up reminders "
- 		+ "when you are running low on a specific item be to you?</html>";
+ 	String scaleQuestionText = "<html> On a scale of 1-5, how pleased are you with the"
+ 			+ "<BR>organization of your fridge and pantry?</html>";
 
  	JLabel scaleQuestion = new JLabel(scaleQuestionText);
 
@@ -435,11 +411,6 @@ ActionListener finishListener = new ActionListener()
 					selectAnswer += box3.getText() + "\n";
 					selectIsClicked = true;
 				}
-				if (box4.isSelected())
-				{
-					selectAnswer += box4.getText() + "\n";
-					selectIsClicked = true;
-				}
 				
 				int spinnerVal = (Integer) groSpinner.getValue();
 				
@@ -469,7 +440,7 @@ ActionListener finishListener = new ActionListener()
 				        output.write(questionArea.getText() + "\n");
 				        output.write(answerArea.getText() + "\n\n");
 				        
-				        output.write(" 5) How useful would an application that keeps "
+				        output.write("Q5: How useful would an application that keeps "
 				        		+ "track of the items in your fridge and pantry and allows "
 				        		+ "you to set up reminders when you are running low on a "
 				        		+ "specific item be to you?\n");
@@ -488,7 +459,8 @@ ActionListener finishListener = new ActionListener()
 				      }
 				    }
 				    
-				    System.exit(0); 
+				  	survey.dispose();
+				    survey.setVisible(false);
 				}
 				else
 				{
