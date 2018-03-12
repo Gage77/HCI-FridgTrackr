@@ -1,0 +1,6 @@
+back button. JButton. value: N/A
+add button. JButton. value: N/A
+favorites filter box. JCheckBox. value: true
+expired filter box. JCheckBox. value: true
+low stock filter box. JCheckBox. value: true
+leftovers filter box. JCheckBox. value: false
