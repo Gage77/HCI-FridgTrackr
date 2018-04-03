@@ -1,0 +1,195 @@
+//******************************************************************************
+// Copyright (C) 2016-2018 University of Oklahoma Board of Trustees.
+//******************************************************************************
+// Last modified: Tue Jan 23 09:33:03 2018 by Chris Weaver
+//******************************************************************************
+// Major Modification History:
+//
+// 20160209 [weaver]:	Original file (for CS 4053/5053 homeworks).
+// 20180123 [weaver]:	Modified for use in CS 3053 team projects.
+//
+//******************************************************************************
+// Notes:
+//
+// To compile on the command line
+// 1. Go to the directory that contains build.gradle
+// 2. Run "gradle installDist"
+//
+// To run on the command line
+// 1. Go to directory build/install/graphics/bin
+// 2. Run the script for the class you want (./foo or double-click the icon).
+//
+//******************************************************************************
+// COMMANDS:
+//
+// See all available tasks in the terminal, or in a window:
+// gradle -q tasks --all
+// gradle --gui
+//
+// Scrub all build results (doesn't remove .gradle cache in home directory):
+// gradle clean
+//
+// Generate javadoc for all subprojects:
+// gradle javadoc
+//
+// Bundle into command line applications, or a zip file containing them:
+// gradle installDist
+// gradle distZip
+//
+//******************************************************************************
+
+buildscript
+{
+	repositories
+	{
+		mavenCentral()
+	}
+}
+
+//******************************************************************************
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+//******************************************************************************
+
+// Adapted from http://stackoverflow.com/questions/18421857/
+// See also http://stackoverflow.com/questions/21241767/
+//
+// Creates scripts for entry points
+// Subproject must apply application plugin to be able to call this method.
+def createScript(project, mainClass, name, jvmOpts) {
+  project.tasks.create(name: name, type: CreateStartScripts) {
+	applicationName = name
+	mainClassName	= mainClass
+	defaultJvmOpts	= jvmOpts
+	outputDir		= new File(project.buildDir, 'scripts')
+	classpath		= project.tasks[JavaPlugin.JAR_TASK_NAME].outputs.files + project.configurations.runtime
+  }
+  project.tasks[name].dependsOn(project.jar)
+
+  project.applicationDistribution.with {
+	into("bin") {
+	  from(project.tasks[name])
+	  fileMode = 0755
+	}
+  }
+}
+
+//******************************************************************************
+
+sourceCompatibility = 1.8
+
+group = "edu.ou.cs.hci"
+version = '1.0.0'
+
+applicationName = "base"
+mainClassName = "edu.ou.cs.hci.example.Base"
+applicationDefaultJvmArgs = ['-Xms128m', '-Xmx756m', '-noclassgc',\
+ '-Dfile.encoding=utf-8', '-Dapple.laf.useScreenMenuBar=false',\
+ '-Dapple.awt.showGrowBox=true', '-Dapple.awt.brushMetalLook=false',\
+ '-Dapple.awt.antialiasing=on', '-Dapple.awt.graphics.UseQuartz=true', ]
+
+//******************************************************************************
+// Alternative Start Scripts
+//******************************************************************************
+
+def altJvmArgs = ['-Xms128m', '-Xmx768m', '-noclassgc',\
+ '-Dfile.encoding=utf-8', '-Dapple.laf.useScreenMenuBar=false',\
+ '-Dapple.awt.showGrowBox=true', '-Dapple.awt.brushMetalLook=false',\
+ '-Dapple.awt.antialiasing=on', '-Dapple.awt.graphics.UseQuartz=true', ]
+
+// Create scripts for alternate entry points (main() methods)
+createScript(project, 'edu.ou.cs.hci.stages.BuildTest', 'build-test', altJvmArgs)
+
+// You'll need to uncomment these incrementally for future assignments. For each
+// one, put the fully qualified classname of the class with main() in the second
+// argument and the desired program name in the third argument.
+//createScript(project, 'edu.ou.cs.hci.stages.Stage1', 'stage1', altJvmArgs)
+//createScript(project, 'edu.ou.cs.hci.stages.Stage2', 'stage2', altJvmArgs)
+//createScript(project, 'edu.ou.cs.hci.stages.Stage3', 'stage3', altJvmArgs)
+//createScript(project, 'edu.ou.cs.hci.stages.Stage4', 'stage4', altJvmArgs)
+createScript(project, 'edu.ou.cs.hci.stages.Stage5', 'stage5', altJvmArgs)
+
+//******************************************************************************
+// Source Sets
+//******************************************************************************
+
+sourceSets
+{
+	main
+	{
+		resources
+		{
+			srcDir 'src/main/java'
+			//include ".*.rsrc"
+			exclude "**/.DS_Store", "**/*.java.*"
+		}
+	}
+}
+
+//******************************************************************************
+// Tasks
+//******************************************************************************
+
+jar
+{
+	manifest
+	{
+		attributes\
+			'Implementation-Title': 'ou-cs-cg',\
+			'Implementation-Version': version,\
+			'Main-Class': mainClassName
+
+			manifest.attributes provider: 'tribe7.net'
+			manifest.attributes permissions: 'all-permissions'
+			manifest.attributes codebase: '*'
+	}
+}
+
+javadoc
+{
+	maxMemory '756m'
+}
+
+// Hack to use alternative maximum stack and heap sizes in Windows start scripts.
+// There are probably more elegant ways to do this in recent versions of Gradle.
+// Note: This only affects primary scripts, not those using our createScript().
+startScripts
+{
+	doLast
+	{
+		// Windows script file
+		def wsf = file getWindowsScript()
+		//wsf.text = wsf.text.replace("-Xms1g", "-Xms256m")
+		//wsf.text = wsf.text.replace("-Xmx2g", "-Xmx1280m")
+	}
+}
+
+//******************************************************************************
+// Dependencies
+//******************************************************************************
+
+repositories
+{
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies
+{
+	//**********************************************************************
+	// REMOTE
+	//**********************************************************************
+
+	// Placeholders for possible addition of external dependencies
+	// DO NOT ADD DEPENDENCIES WITHOUT MY EXPLICIT PERMISSION!
+
+	//runtime ('host:library:version') { transitive = false }
+
+	//compile ('host:library:version') { transitive = true }
+}
+
+//******************************************************************************
