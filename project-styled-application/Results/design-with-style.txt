@@ -1,0 +1,15 @@
+	For color, the colors chosen as a team are integrated within the frame. The selecting and highlighting colors (red, yellow, and orange) work. As of right now, red item are chosen as having less than three days left in the fridge section, and when a red item is selected, the selecting color changes from yellow to orange (as decided on by our group). The groceries and recipes section do not have red items. I had to develop my own table class and cellrenderer class that extended JTable and DefaultTableCellRenderer. It was difficult, because I was previously unfamiliar with the specificities of JTable and how to render the cells, but once I researched it, it became clear to me what I needed to do. My cell renderer does all the heavy lifting where I specify which are red items and how to color based on whether a row is selected. Now that I look back at it, my MyTable is probably unnecessary, but I implemented it before I realized I needed to override the DefaultTableCellRenderer. 
+	The layout of the add and back buttons were moved to the top, so that the layout of the filter boxes could be moved. Upon later reflection, I decided to change the favorites checkbox to just the star so it was more representative. I left it above the name label, as opposed to the favorites sections, so that it wasn’t flush with the outer rim of the tab, also favorites could be more associated with name as well as easier to click according to Fitt’s law. 
+	Our group discussed our labeling and we determined they were simple and descriptive already. In this assignment we actually discussed how we used our labeling to be places where we could place related widgets, like our filter boxes, which I implemented, as described in the previous paragraph. I changed the add and back buttons to icons. Aside from that, I did remove our theme menu items, and moved resolution to our window menu, as specified in our group document. My program quits with the universal exit button as well as the quit from the menu bar.
+
+Icons are from:
+(Settings, Search, Restore Buttons on ToolBar)
+Icons made by [https://www.flaticon.com/authors/gregor-cresnar] from www.flaticon.com 
+(Filter Button on ToolBar)
+Icon made by [https://www.flaticon.com/authors/freepik] from www.flaticon.com
+(Add Button)
+Icon made by [https://www.flaticon.com/authors/smashicons] from www.flaticon.com
+(Back Button)
+Icons made by [https://www.flaticon.com/authors/roundicons] from www.flaticon.com
+(Bold Face Button)
+Icons made by [https://www.flaticon.com/authors/dave-gandy] from www.flaticon.com
