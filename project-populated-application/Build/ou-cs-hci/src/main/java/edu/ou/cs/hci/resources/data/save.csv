@@ -1,0 +1,25 @@
+﻿1,bread,7 slice(s),4/15/18,0
+0,frozen chicken nuggets,0.5 bag(s),7/20/18,0
+1,eggs,1 egg(s),4/16/18,0
+0,chili,null,4/15/18,1
+1,turkey,12 slice(s),4/21/18,0
+1,cheddar cheese,1 slice(s),4/20/18,0
+0,tacos,6 taco(s),4/16/18,1
+1,mayonaise,0.5 jar(s),5/2/18,0
+1,ground beef,0 lbs.,4/15/18,0
+1,milk,6 cup(s),4/10/18,0
+1,salt,null,null,0
+1,ketchup,1 bottle(s),9/19/18,0
+1,fruit rollups,3 rollup(s),8/15/19,0
+bread,null,,,
+bacon,null,,,
+turkey,null,,,
+fruit rollups,null,,,
+shredded cheese,null,,,
+ground beef,2 lb(s).,,,
+cheddar cheese,null,,,
+eggs,12 egg(s),,,
+frozen pizza,2 (pizzas),,,
+turkey club,/ou-cs-hci/build/resources/main/edu/ou/cs/hci/resources/recipes/**,2 slice(s) bread./2 slice(s) turkey./2 slice(s) cheddar cheese./null mayonaise,,
+meat loaf,/ou-cs-hci/build/resources/main/edu/ou/cs/hci/resources/recipes/**,1 lb(s). ground beef./1 egg(s) egg./1 cup(s) milk./null salt./null ketchup,,
+huevos rancheros,/ou-cs-hci/build/resources/main/edu/ou/cs/hci/resources/recipes/**,1 jar(s) salsa./2 egg(s) eggs./null shredded cheese,,
