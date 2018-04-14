@@ -1,2 +1,8 @@
-#Mon Feb 19 21:21:58 CST 2018
+#Sat Apr 14 10:18:10 CDT 2018
 connection.project.dir=
+override.workspace.settings=true
+connection.gradle.distribution=GRADLE_DISTRIBUTION(LOCAL_INSTALLATION(/home/conner/.sdkman/candidates/gradle/current))
+auto.sync=false
+gradle.user.home=
+build.scans.enabled=false
+offline.mode=false
