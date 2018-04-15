@@ -10,16 +10,24 @@ import javax.swing.*; //needed for GUI elements
 
 public class Fridge
 {
+    ArrayList<food> items; //will hold the database
+
     //this constructor creates a fridge database with no entries
     public Fridge()
     {
-
+        items = new ArrayList<food>();
     }
 
     //adds a food object to the database
     public add(food entry)
     {
-        //TODO write fridge add
+        items.add(entry);
+    }
+
+    //returns the ArrayList that holds all entries
+    public ArrayList<food> getItems()
+    {
+        return items;
     }
 
     //creates the UI
@@ -31,7 +39,7 @@ public class Fridge
         panel.setBorder(BorderFactory.createTitledBorder("Fridge"));
 
         //creates a custom data table for displaying fridge entries
-        MyTable fridgeTable = new MyTable(products, colName);
+        MyTable fridgeTable = generateTable();
         //create a render to be used with the data table
         MyRenderer renderer = new MyRenderer();
         //sets the default values/behaviour of data table
@@ -79,5 +87,29 @@ public class Fridge
         //sends back the finished panel
         return panel;
 
+    }
+
+    //this will make the table the the GUI will show
+    private MyTable generateTable()
+    {
+        //this creates the column headers for the table
+        String[] titles = new String[] {"☆", "Name" ,"Amount",
+                                        "Days Left", "Leftovers?"};
+        //fields will store all of the entries in the database for the GUI
+        ArrayList fields = ArrayList();
+        for (food foodStuff: items) //for each element in items do the following
+        {
+            //creates a single row of the table
+            String[] currentRow = String[5]; //creates an array for this row
+            String[0] = foodStuff.getFav();      //sets this row's fav value
+            String[1] = foodStuff.getName();     //sets this row's name
+            String[2] = foodStuff.getAmount();   //sets this row's amount
+            String[3] = foodStuff.getDaysLeft(); //sets this row's expr value
+            String[4] = foodStuff.getLeftover(); //sets this row's leftvr value
+            fields.add(currentRow); //adds this row to the fields ArrayList
+        }
+        //builds a table with titles and a downgraded fields array
+        MyTable builtTable = new MyTable(fields.toArray(), titles);
+        return builtTable; // return
     }
 }

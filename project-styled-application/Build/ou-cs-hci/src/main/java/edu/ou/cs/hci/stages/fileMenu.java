@@ -12,15 +12,34 @@ public class fileMenu
 {
 
     //creates the UI
-    public static JMenuBar render()  //TODO comment
+    public static JMenuBar render(readr buff)  //TODO comment
     {
         JMenuBar menuBar = new JMenuBar();
         // File menu
         JMenuItem openItem = new JMenuItem(new AbstractAction("Open (CTRL + O)")
         {
-            public void actionPerformed(ActionEvent a)  //TODO write load
+            public void actionPerformed(ActionEvent a)
             {
-                System.out.println("File -> Open (CTRL + O). Opens a FridgTrackr file.");
+                try
+                {
+                    //creates the fileChooser
+                    JFileChooser fileBox = new JFileChooser();
+                    //stores the return of the file chooser after close
+                    int result= jFileChooser.showOpenDialog(this);
+                    //if a file was choosen
+                    if(result == JFileChooser.APPROVE_OPTION)
+                    {
+                        //capture that file
+                        File file=jFileChooser.getSelectedFile();
+                        //
+                        buff.in(file.getPath());
+                    }
+                }
+                catch(FileNotFoundException e)
+                {
+                    e.printStackTrace(); //print the stack trace on an error
+                }
+                //file chooser code
             }
         });
         JMenuItem saveItem = new JMenuItem(new AbstractAction("Save (CTRL + S)")

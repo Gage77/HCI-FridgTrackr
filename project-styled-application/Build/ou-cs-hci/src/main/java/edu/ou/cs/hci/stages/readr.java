@@ -2,10 +2,10 @@
 
 public class readr
 {
-    // Public Class Members
-    Fridge fridge;
-    Redcipes recipe;
-    Groceries groceries;
+    // Private Class Members
+    private Fridge fridge;
+    private Recipes recipe;
+    private Groceries groceries;
 
     //constructor
     public readr(Fridge fr, Recipes rp, Groceries gr)
@@ -31,10 +31,9 @@ public class readr
                 String id; //used to testgroceries
                 switch(line[0]) //compare id's with the first string
                 {
-                    //TODO create food make methods
-                    case 2: groceries.add(food.makeGr(line));//builds grocery
-                    case 4: recipes.add(food.makeRcp(line)); //builds recipe
-                    case 5: fridge.add(food.makeFrg(line)); //builds fridge food
+                    case 0: groceries.add(food.makeGr(line));//builds grocery
+                    case 1: fridge.add(food.makeFrg(line)); //builds fridge food
+                    case 2: recipes.add(food.makeRcp(line)); //builds recipe
                 }
                 lineIn = br.readLine(); //reads the next line
             }

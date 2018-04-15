@@ -46,6 +46,8 @@ import edu.ou.cs.hci.resources.*;
  */
 public final class Stage6
 {
+	//Public Varibles
+
 
 	//main
 	public static void main(String[] args)
@@ -106,42 +108,8 @@ public final class Stage6
 		//adds the JTabbedPane to the base pane
 		frame.getContentPane().add(tabs, BorderLayout.CENTER);
 
-
-		/* //NOTE this will be done in constructors now
-		//creates the content of the fridge category panel
-		String[] colName = new String[] {"☆", "Name" ,"Amount", "Days Left", "Leftovers?"};
-		Object[][] products = new Object[][] {
-                { "☆", "Apples", "15 (Apples)", "3" , ""},
-                { "★", "Eggs", "6 (Eggs)", "12" , ""},
-                { "☆", "Chili", "--", "3", "Yes"},
-                { "★", "Oranges" ,"20 (Oranges)", "4", ""},
-                { "☆", "Peaches" ,"10 (Peaches)", "1", ""},
-                { "☆", "Tacos", "--", "2", "Yes"},
-                { "★", "Bread", "2 (Slices)", "7", ""},
-                { "☆", "Potato Chips", "1 (Bags)", "3" , ""}
-
-							};
-		//creates the content of the groceries category panel
-		String[] colName1 = new String[] {"Name" ,"Amount", "Delete"};
-		Object[][] products1 = new Object[][] {
-			 	{ "Apples" ,"15", "[x]" },
-				{ "Oranges" ,"20", "[x]"},
-				{ "Peaches" ,"10", "[x]"},
-							};
-
-
-		//creates the content of the recipes category panel
-		String[] colName2 = new String[] {"Name","Delete"};
-		Object[][] products2 = new Object[][] {
-				{ "Grilled Cheese", "[x]" },
-				{ "Pizza", "[x]" },
-				{ "Mac & Cheese", "[x]" },
-							 };
-
-							*/
-
-		// ----- MENU BAR ----- //  //TODO write file chooser code
-		JMenuBar menuBar = fileMenu.render(); //create the menu bar
+		// ----- MENU BAR ----- //  //TODO write save code
+		JMenuBar menuBar = fileMenu.render(in); //create the menu bar
 		frame.setJMenuBar(menuBar); //add the menu bar to the main frame
 
 		// ----- TOOL BAR ----- //
