@@ -46,8 +46,13 @@ import edu.ou.cs.hci.resources.*;
  */
 public final class Stage6
 {
-	//Public Varibles
+	//TODO currently no way to add new values to any database. The databases have add methods
+	// but they are not called by anything, and require a food object. Something must get user input,
+	// create a food, and then call the right add methods.  
 
+	//TODO currently database panels render before we can be sure the readr
+	//has loaded a file. This still neeeds to be changed, perhaps by drawing a
+	//defualt panel, and then re-rendering after data has been loaded? Is that feasible?
 
 	//main
 	public static void main(String[] args)
@@ -87,7 +92,7 @@ public final class Stage6
 		Fridge	ufridge = new Fridge(); //creates the fridge database
 		Recipes	urecipes = new Fridge(); //creates the recipes database
 		Fridge	ugroceries = new Fridge(); //creates the groceries database
-		//TODO currently panels draws values before they would have them, change
+
 		// --- Render --- //
 		JPanel	fridge = ufridge.render(); //creates the fridge UI
 		JPanel	recipes = urecipes.render(); //creates the recipes UI
@@ -121,10 +126,11 @@ public final class Stage6
 		//sets the base frame to visible & to end on exit
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//if changes have been made prompt user to save
 		frame.addWindowListener(new WindowAdapter()
 		{public void windowClosing(WindowEvent e)
 				{
-					if(in.changeMade())
+					if(in.changeMade()) //if changes have been made
 					{
 						//creates the prompt message
 						String message = "You have made changes. Would you like to save?";

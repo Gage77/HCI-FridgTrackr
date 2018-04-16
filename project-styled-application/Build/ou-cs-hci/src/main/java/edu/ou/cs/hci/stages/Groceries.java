@@ -22,6 +22,15 @@ public class Groceries
         items.add(entry);
     }
 
+    //this well report if changes have been made to the database
+    public changeMade()
+    {
+        return isChanged;
+        //updates isChanged to show changes
+        isChanged = true;
+
+    }
+
     //used by readr to create CSV
     public StringBuilder out()
     {

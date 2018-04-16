@@ -81,8 +81,7 @@ public class food
         //call the recipe item constructor
         return(new food(lineIn[0], lineIn[1], lineIn[2], lineIn[3], line[4]));
     }
-
-    //TODO add getters & setters for food's values
+    
     //getters for food
     public String getId()
     {

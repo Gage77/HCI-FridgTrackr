@@ -20,6 +20,14 @@ public class Recipes
     public add(food entry)
     {
 		items.add(entry);
+		//updates isChanged to show changes
+        isChanged = true;
+    }
+
+	//this well report if changes have been made to the database
+    public changeMade()
+    {
+        return isChanged;
     }
 
 	//used by readr to create CSV

@@ -11,6 +11,7 @@ import javax.swing.*; //needed for GUI elements
 public class Fridge
 {
     ArrayList<food> items; //will hold the database
+    Boolean isChanged = false;
 
     //this constructor creates a fridge database with no entries
     public Fridge()
@@ -22,12 +23,20 @@ public class Fridge
     public add(food entry)
     {
         items.add(entry);
+        //updates isChanged to show changes
+        isChanged = true;
     }
 
     //returns the ArrayList that holds all entries
     public ArrayList<food> getItems()
     {
         return items;
+    }
+
+    //this well report if changes have been made to the database
+    public Boolean changeMade()
+    {
+        return isChanged;
     }
 
     //used by readr to create CSV
