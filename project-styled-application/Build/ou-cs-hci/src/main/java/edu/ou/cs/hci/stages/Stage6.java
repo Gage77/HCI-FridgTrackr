@@ -122,13 +122,54 @@ public final class Stage6
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter()
-		{
-				public void windowClosing(WindowEvent e)
+		{public void windowClosing(WindowEvent e)
 				{
-					quitItem.doClick();
-					System.exit(0);
+					if(in.changeMade())
+					{
+						//creates the prompt message
+						String message = "You have made changes. Would you like to save?";
+						//prompts the user
+						int choice = JOptionPane.showConfirmDialog(null, message);
+						//if they choose to save
+						if(choice == JOptionPane.YES_OPTION)
+						{
+							//file chooser can throw a FileNotFoundException. Check for it
+							try
+							{
+								//creates the fileChooser
+								JFileChooser fileBox = new JFileChooser();
+								//stores the return of the file chooser after close
+								int result = jFileChooser.showSaveDialog(this);
+								//if a valid path for saving was choosen
+								if(result == JFileChooser.APPROVE_OPTION)
+								{
+									//create a file writer for the new file
+									FileWriter writer = new FileWriter(fileBox.getSelectedFile()+".txt");
+									//tell the readr to create a CSV string
+									writer.write(buff.out());
+									writer.close(); //closes the writer
+								}
+
+								//quits after saving
+								quitItem.doClick();
+								System.exit(0);
+							} //end of try
+							catch(Exception f)
+							{
+								f.printStackTrace(); //print the stack trace on an error
+							} //end of catch
+						}
+
+						//if they choose not to save
+						if(choice == JOptionPane.NO_OPTION)
+						{
+							//quits
+							quitItem.doClick();
+							System.exit(0);
+						}
+					}
 				}
-			});
-	}
-}
+			}); //end of action listener
+	} //end of main method
+} //end of class
 //******************************************************************************

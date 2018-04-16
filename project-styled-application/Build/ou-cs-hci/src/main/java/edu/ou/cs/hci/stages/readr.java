@@ -66,4 +66,15 @@ public class readr
         return (output.toString()); //returns the "file" as a string
     }
 
+    //used to detect changes
+    public Boolean changeMade()
+    {
+        //if a change was made to any database
+        if(firdge.changesMade() || recipe.changesMade() || groceries.changesMade())
+        {
+            return Boolean.TRUE; //return that changes have been made
+        }
+        return Boolean.FALSE; //otherwise report no changes
+    }
+
 }

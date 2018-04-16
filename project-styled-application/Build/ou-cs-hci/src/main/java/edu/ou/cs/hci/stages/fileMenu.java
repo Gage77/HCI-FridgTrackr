@@ -37,10 +37,8 @@ public class fileMenu
                         //checks to see if the file already exists
                         if(file.exists())
                         {
-                            //creates a overwrite option box
-                            JOptionPane overwriteBox  = JOptionPane();
                             //shows the overwrite box and prompts the user to select another file
-                            JOptionPane.showConfirmDialog(this,"The file exists, please select another",
+                            JOptionPane.showConfirmDialog(null,"The file exists, please select another",
                                                           "Existing file",JOptionPane.OK_OPTION);
                         }
                         else //if the file does not exist, read it in
@@ -74,12 +72,10 @@ public class fileMenu
                         try
                         {
                             //create a file writer for the new file
-                            FileWriter writer = new FileWriter(fileBox.getSelectedFile()+".txt")
-                            {
-                                //tell the readr to create a CSV string
-                                writer.write(buff.out());
-                                writer.close; //closes the writer
-                            }
+                            FileWriter writer = new FileWriter(fileBox.getSelectedFile()+".txt");
+                            //tell the readr to create a CSV string
+                            writer.write(buff.out());
+                            writer.close(); //closes the writer
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
@@ -89,9 +85,9 @@ public class fileMenu
                 {
                     e.printStackTrace(); //print the stack trace on an error
                 } //end of catch
-                //TODO write save listener
             }
         }); //end of save listener
+
         // ----- Print Menu ----- //
         //NOTE do we want to get rid of all these print options?
         JMenuItem printAllItem = new JMenuItem(new AbstractAction("All (CTRL + P)")
@@ -126,7 +122,50 @@ public class fileMenu
         //creates a menu for the print options
         JMenu printSubmenu = new JMenu("Print");
         //creates the quit option
-        JMenuItem quitItem = new JMenuItem("Quit	(CTRL + Q)"); // ActionListener added later
+        JMenuItem quitItem = new JMenuItem(new AbstractAction("Quit	(CTRL + Q)")
+        {
+            public void actionPerformed(ActionEvent a)
+            {
+                if(buff.changeMade())
+                {
+                    //creates the prompt message
+                    String message = "You have made changes. Would you like to save?";
+                    //prompts the user
+                    int choice = JOptionPane.showConfirmDialog(null, message);
+                    //if they choose to save
+                    if(choice == JOptionPane.YES_OPTION)
+                    {
+                        //file chooser can throw a FileNotFoundException. Check for it
+                        try
+                        {
+                            //creates the fileChooser
+                            JFileChooser fileBox = new JFileChooser();
+                            //stores the return of the file chooser after close
+                            int result = jFileChooser.showSaveDialog(this);
+                            //if a valid path for saving was choosen
+                            if(result == JFileChooser.APPROVE_OPTION)
+                            {
+                                //create a file writer for the new file
+                                FileWriter writer = new FileWriter(fileBox.getSelectedFile()+".txt");
+                                //tell the readr to create a CSV string
+                                writer.write(buff.out());
+                                writer.close(); //closes the writer
+                            }
+                        } //end of try
+                        catch(Exception e)
+                        {
+                            e.printStackTrace(); //print the stack trace on an error
+                        } //end of catch
+                        System.exit(0); //quits after saving
+                    }
+                    //if they choose not to save
+                    if(choice == JOptionPane.NO_OPTION)
+                    {
+                        System.exit(0); //quits after saving
+                    }
+                }
+            }
+        });
 
         // ----- Print Menu ----- //
         printSubmenu.add(printAllItem);         //add print all to print menu
