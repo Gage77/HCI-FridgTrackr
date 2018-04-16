@@ -22,6 +22,24 @@ public class Recipes
 		items.add(entry);
     }
 
+	//used by readr to create CSV
+    public StringBuilder out()
+    {
+		StringBuilder out = new StringBuilder(); //the data to be outputed
+
+		for (food foodStuff: items) //for each element in items do the following
+		{
+			//turns an entry into a single line
+			out.append("2,");                      		//sets the line's id
+			out.append(foodStuff.getName()+",");		//sets the line's name
+			out.append(foodStuff.getFile()+","); 		//sets the line's file path
+			out.append(foodStuff.getIngredients()+","); //sets the line's ingrds.
+			out.append(foodStuff.getImage()+","); 		//sets the line's image path
+			out.append("\n");   //add a newline before the next line
+		}
+		return out; //return the built CSV chunk
+    }
+
     //creates the UI
     public render()
     {
@@ -30,11 +48,47 @@ public class Recipes
         //give the panel a title
         panel.setBorder(BorderFactory.createTitledBorder("Recipes"));
 
-        //creates a table to hold the groceries
-		MyTable groceryTable = generateTable();
-		//adds the grocery table to the panel
-		panel.add(new JScrollPane(groceryTable), BorderLayout.CENTER);
+		// ----- Recipe Data View ----- //
+		//this will hold the display for allthe entries in the database
+		JPanel entryDisplay = new JPanel(new BorderLayout());
+        //creates a table to hold the recipes
+		MyTable recipeTable = generateTable();
+		//sets the table so only 1 selection can be made at once
+		recipeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		//this is what the action listener will be attached to
+		ListSelectionModel select = recipeTable.getSelectionModel();
+		//adds the recipes table to the entry display
+		entryDisplay.add(new JScrollPane(recipeTable), BorderLayout.WEST);
+		//creates the map of entries
+		HashMap map = CreateRecipeViewer();
+		//create the default displayed "recipe"
+		JTextArea defaultArea = new JTextArea();
+		defaultArea.setEditable(False);
+		//creates scroll pane
+		JScrollPane recipeViewer = new JScrollPane(defaultArea);
+		//creates the actions listener for the table
+		ListSelectionListener listenForSelection = new ListSelectionListener()
+		{
+      		public void valueChanged(ListSelectionEvent e)
+			{
+				//get the selected row
+				int row = recipeTable.getSelectedRow();
+				//get the name of the selected recipe
+				String nameSelected = recipeTable.getValueAt(row, 1);
+				//using the name of the selected recipe get the JTable
+				JTable recipeDetails = map.get(nameSelected);
+				//display the selected recipe data
+				recipeViewer.setViewportView(recipeDetails);
 
+          	}
+        };
+		//adds an action listener to the table
+		select.addListSelectionListener(listenForSelection);
+
+		//adds recipe viewer to the entry display
+		entryDisplay.add(recipeViewer, BorderLayout.EAST);
+		//adds the recipe entry display to the primary panel
+		panel.add(entryDisplay, BorderLayout.CENTER);
 
         // ----- RECIPES TAB FILTER CHECKBOX PANEL ----- //
 		//filterPanel will hold all of the filtering options
@@ -70,8 +124,34 @@ public class Recipes
 
 		//sends back the finished panel
 		return panel;
-
     }
+
+	//this will be used by render to create the recipe viewer
+	private JScrollPane CreateRecipeViewer()
+	{
+		BufferedReader br; //the reader for all recipe files
+		HashMap map = new HashMap(); //will store the recipe text
+
+		for (food thisFood: items) //for all food items
+		{
+			//will hold the text to display
+			JTextArea textBox = new JTextArea();
+			//create a file from this entries file path
+			File recipePath = new file(thisFood.getFile());
+			//make a reader for that file
+			br = new BufferedReader(new FileReader(recipePath));
+			String line = br.readLine(); //read 1st line of the file
+			while(line != null) //while there is another line
+			{
+  				textBox.append(line + "\n"); //add line to the JTextArea
+  				line = br.readLine(); //read the next line
+			}//the text file should now be loaded into textBox
+			//loads the textField into a map accessed by the recipes name
+			map.put(thisFood.getName(), textBox);
+		}
+
+		return map;
+	}
 
 	//this will make the table the the GUI will show
 	private MyTable generateTable()
@@ -86,7 +166,6 @@ public class Recipes
 			String[] currentRow = String[1]; //creates an array for this row
 			String[1] = foodStuff.getName(); //sets this row's name
 			fields.add(currentRow); //adds this row to the fields ArrayList
-			//TODO code some kind of recipe view
 		}
 		//builds a table with titles and a downgraded fields array
 		MyTable builtTable = new MyTable(fields.toArray(), titles);

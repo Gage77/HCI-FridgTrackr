@@ -87,6 +87,7 @@ public final class Stage6
 		Fridge	ufridge = new Fridge(); //creates the fridge database
 		Recipes	urecipes = new Fridge(); //creates the recipes database
 		Fridge	ugroceries = new Fridge(); //creates the groceries database
+		//TODO currently panels draws values before they would have them, change
 		// --- Render --- //
 		JPanel	fridge = ufridge.render(); //creates the fridge UI
 		JPanel	recipes = urecipes.render(); //creates the recipes UI
@@ -108,7 +109,7 @@ public final class Stage6
 		//adds the JTabbedPane to the base pane
 		frame.getContentPane().add(tabs, BorderLayout.CENTER);
 
-		// ----- MENU BAR ----- //  //TODO write save code
+		// ----- MENU BAR ----- //
 		JMenuBar menuBar = fileMenu.render(in); //create the menu bar
 		frame.setJMenuBar(menuBar); //add the menu bar to the main frame
 

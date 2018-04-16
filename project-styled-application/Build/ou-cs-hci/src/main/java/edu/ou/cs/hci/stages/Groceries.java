@@ -22,6 +22,22 @@ public class Groceries
         items.add(entry);
     }
 
+    //used by readr to create CSV
+    public StringBuilder out()
+    {
+        StringBuilder out = new StringBuilder(); //the data to be outputed
+
+        for (food foodStuff: items) //for each element in items do the following
+        {
+            //turns an entry into a single line
+            out.append("1,");                      //sets the line's id
+            out.append(foodStuff.getName()+",");   //sets the line's name
+            out.append(foodStuff.getAmount()+","); //sets the line's amount
+            out.append("\n");   //add a newline before the next line
+        }
+        return out; //return the built CSV chunk
+    }
+
     //returns the ArrayList that holds all entries
     public ArrayList<food> getItems()
     {

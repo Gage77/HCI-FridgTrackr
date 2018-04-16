@@ -56,10 +56,14 @@ public class readr
     }
 
     //used to save & convert TO CSV
-    public out()
+    public String out()
     {
-        //TODO write code for readr saving
-        //TODO write code for database -> CSV conversion
+        //this will store the databases we convert to the CSV format
+        StringBuilder output = new StringBuilder();
+        output.append(fridge.out);  //add the fridge database to the CSV
+        output.append(grocery.out); //add the grocery database to the CSV
+        output.append(recipe.out);  //add the recipe database to the CSV
+        return (output.toString()); //returns the "file" as a string
     }
 
 }

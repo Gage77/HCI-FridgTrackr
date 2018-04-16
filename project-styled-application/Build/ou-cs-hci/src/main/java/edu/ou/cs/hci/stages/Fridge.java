@@ -30,6 +30,25 @@ public class Fridge
         return items;
     }
 
+    //used by readr to create CSV
+    public StringBuilder out()
+    {
+        StringBuilder out = new StringBuilder(); //the data to be outputed
+
+        for (food foodStuff: items) //for each element in items do the following
+        {
+            //turns an entry into a single line
+            out.append("0,");                           //sets the line's id
+            out.append(foodStuff.getFavStr()+",");      //sets the line's fav value
+            out.append(foodStuff.getName()+",");        //sets the line's name
+            out.append(foodStuff.getAmount()+",");      //sets the line's amount
+            out.append(foodStuff.getDaysLeft()+",");    //sets the line's expr value
+            out.append(foodStuff.getLeftoverStr()+","); //sets the line's leftvr value
+            out.append("\n");   //add a newline before the next line
+        }
+        return out; //return the built CSV chunk
+    }
+
     //creates the UI
     public render()
     {
