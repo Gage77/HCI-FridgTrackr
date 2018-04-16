@@ -12,36 +12,42 @@ class MyRenderer extends DefaultTableCellRenderer
     private static final Color	SELECT_COLOR = Color.decode("#ffcc00");
     private static final Color  MIX_COLOR = Color.decode("#ff6600");
 
+    //constructor
     public MyRenderer()
     {
-        super();
-        setOpaque(true);
+        super(); //call parent
+        setOpaque(true); //sets opaque value
     }
+
+    //creates a custom render for table cells
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column)
     {
+        //if there is less than 3 of an item
         if(Integer.parseInt((String)table.getValueAt(row, 3)) < 3)
         {
                 setForeground(Color.black);
-                if (isSelected)
+                if (isSelected) //if a low stocked item is selected
                 {
-                    setBackground(MIX_COLOR);
+                    setBackground(MIX_COLOR); //color orange
                 }
-                else {
-                    setBackground(ALERT_COLOR);
+                else //if a low stocked item is not selected
+                {
+                    setBackground(ALERT_COLOR); //color red
                 }
         }
-        else
+        else //if there is 3 or more of an item
         {
-                if (isSelected)
+                if (isSelected) //if a normal row is selected
                 {
-                    setBackground(SELECT_COLOR);
+                    setBackground(SELECT_COLOR); //color yellow
                 }
-                else {
-                setBackground(Color.white);
+                else //if a normal row is not selected
+                {
+                setBackground(Color.white); //color white
                 }
         }
-        setText(value.toString());
-        return this;
+        setText(value.toString()); //sets the texts of the cell
+        return this; //return the created cell
     }
 }

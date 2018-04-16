@@ -1,7 +1,9 @@
+/*
 
+The food class will be used to create food objects that will
+be the entries on each of our databases
 
-
-
+*/
 public class food
 {
     //private class members
@@ -81,4 +83,59 @@ public class food
     }
 
     //TODO add getters & setters for food's values
+    //getters for food
+    public String getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getAmount()
+    {
+        return amount;
+    }
+
+    public boolean getFav()
+    {
+        return isFav;
+    }
+
+    public String getFavStr()
+    {
+        return  String.valueOf(isFav);
+    }
+
+    public boolean getLeftover()
+    {
+        return isLeftover;
+    }
+
+    public String getLeftoverStr()
+    {
+        return  String.valueOf(isLeftover);
+    }
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public String getFile()
+    {
+        return filePath;
+    }
+
+    public String getIngredients()
+    {
+        return id;
+    }
+
+    public String getImage()
+    {
+        return imagePath;
+    }
 }

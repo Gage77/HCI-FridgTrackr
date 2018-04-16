@@ -34,9 +34,21 @@ public class fileMenu
                     {
                         //capture that file
                         File file=jFileChooser.getSelectedFile();
-                        //pass the readr the file path so it can load
-                        buff.in(file.getPath());
-                    }
+                        //checks to see if the file already exists
+                        if(file.exists())
+                        {
+                            //creates a overwrite option box
+                            JOptionPane overwriteBox  = JOptionPane();
+                            //shows the overwrite box and prompts the user to select another file
+                            JOptionPane.showConfirmDialog(this,"The file exists, please select another",
+                                                          "Existing file",JOptionPane.OK_OPTION);
+                        }
+                        else //if the file does not exist, read it in
+                        {
+                            //pass the readr the file path so it can load
+                            buff.in(file.getPath());
+                        }
+                    }//end of overwrite box
                 } //end of try
                 catch(FileNotFoundException e)
                 {

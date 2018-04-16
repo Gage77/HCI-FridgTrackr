@@ -5,15 +5,20 @@
  */
 public class MyTable extends JTable
 {
+    //makes the selection color a constant
     private static final Color	SELECT_COLOR = Color.decode("#ffcc00");
 
-    MyTable(Object[][] obj, String[] cols){
-                            super(obj,cols);
-
+    //overrides the parent constructor
+    MyTable(Object[][] obj, String[] cols)
+    {
+        //call parent
+        super(obj,cols);
     }
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        this.setSelectionBackground(Color.decode(SELECT_COLOR));
+    @Override  //overrides the parent
+    public void valueChanged(ListSelectionEvent e)
+    {
+        //sets the selection color when an entry is selected
+        this.setSelectionBackground(SELECT_COLOR);
 
     }
 
