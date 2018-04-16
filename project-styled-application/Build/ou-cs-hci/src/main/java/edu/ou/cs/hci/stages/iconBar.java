@@ -1,6 +1,5 @@
 /*
-
-
+This class will create the icon bar.
 */
 package main.java.edu.ou.cs.hci.stages;
 
@@ -19,206 +18,79 @@ import java.util.ArrayList;
 
 import edu.ou.cs.hci.resources.*;
 
-//TODO comment
 public class iconBar
 {
+    //this will create the toolBar object for the main frame
     public static JToolBar render()
     {
-        JToolBar toolBar = new JToolBar("Tool Bar");
-        JButton searchTool = new JButton(new AbstractAction("Search")
+        JToolBar toolBar = new JToolBar("Tool Bar"); //creates the prime toolBar
+        JButton searchTool = new JButton(new AbstractAction("Search") //creates the search icon
         {
-            public void actionPerformed(ActionEvent a)
+            public void actionPerformed(ActionEvent a) //when the search icon is clicked
             {
                 System.out.println("ToolBar --> Search (CTRL + F). Allows the user to search for an item in the database.");
             }
         });
-        searchTool.setIcon(Resources.getImage("icons/search.png"));
-        searchTool.setFont(new Font("Arial", Font.PLAIN, 15));
-        searchTool.setVerticalTextPosition(SwingConstants.TOP);
-        searchTool.setHorizontalTextPosition(SwingConstants.CENTER);
-        toolBar.add(searchTool);
-        JButton filterTool = new JButton(new AbstractAction("Filter")
+        searchTool.setIcon(Resources.getImage("icons/search.png")); //set the icon for search
+        searchTool.setFont(new Font("Arial", Font.PLAIN, 15)); //set font
+        searchTool.setVerticalTextPosition(SwingConstants.TOP); //set y coordinate position
+        searchTool.setHorizontalTextPosition(SwingConstants.CENTER); //set x coordinate position
+        toolBar.add(searchTool); //add the search button to the prime toolBar
+        JButton filterTool = new JButton(new AbstractAction("Filter") //creates the filter button
         {
-            public void actionPerformed(ActionEvent a)
+            public void actionPerformed(ActionEvent a) //when filter is clicked
             {
                 System.out.println("ToolBar --> Filter. Allows the user to choose criteria to filter by.");
             }
         });
-        filterTool.setIcon(Resources.getImage("icons/filter.png"));
-        filterTool.setFont(new Font("Arial", Font.PLAIN, 15));
-        filterTool.setVerticalTextPosition(SwingConstants.TOP);
-        filterTool.setHorizontalTextPosition(SwingConstants.CENTER);
-        toolBar.add(filterTool);
-        toolBar.addSeparator();
+        filterTool.setIcon(Resources.getImage("icons/filter.png")); //set filter icon
+        filterTool.setFont(new Font("Arial", Font.PLAIN, 15)); //set filter font
+        filterTool.setVerticalTextPosition(SwingConstants.TOP); //set y coordinate position
+        filterTool.setHorizontalTextPosition(SwingConstants.CENTER); //set x coordinate position
+        toolBar.add(filterTool); //add the filter button to the prime toolbar
+        toolBar.addSeparator(); //add seperator to toolbar to collect search & filter together
 
-        JButton restoreTool = new JButton(new AbstractAction("Restore")
+        // ----- After 1st Seperator ----- //
+        JButton restoreTool = new JButton(new AbstractAction("Restore") //creates the restore button
         {
-            public void actionPerformed(ActionEvent a)
+            public void actionPerformed(ActionEvent a) //when the restore button is clicked
             {
                 System.out.println("ToolBar --> Restore (CTRL + Z). Restores the most recently deleted item.");
             }
         });
-        restoreTool.setIcon(Resources.getImage("icons/restore.png"));
-        restoreTool.setFont(new Font("Arial", Font.PLAIN, 15));
-        restoreTool.setVerticalTextPosition(SwingConstants.TOP);
-        restoreTool.setHorizontalTextPosition(SwingConstants.CENTER);
-        toolBar.add(restoreTool);
+        restoreTool.setIcon(Resources.getImage("icons/restore.png")); //sets the restore icon
+        restoreTool.setFont(new Font("Arial", Font.PLAIN, 15)); //sets the restore font
+        restoreTool.setVerticalTextPosition(SwingConstants.TOP); //set y coordinate position
+        restoreTool.setHorizontalTextPosition(SwingConstants.CENTER); //set x coordinate position
+        toolBar.add(restoreTool); //adds the restore button to the prime toolBar
 
-        JButton settingsTool = new JButton(new AbstractAction("Settings")
+        JButton settingsTool = new JButton(new AbstractAction("Settings") //creates the settings button
         {
-            public void actionPerformed(ActionEvent a)
+            public void actionPerformed(ActionEvent a) //when settings is clicked
             {
                 System.out.println("ToolBar --> Settings. Opens the settings window for the application.");
             }
         });
-        settingsTool.setIcon(Resources.getImage("icons/settings.png"));
-        settingsTool.setFont(new Font("Arial", Font.PLAIN, 15));
-        settingsTool.setVerticalTextPosition(SwingConstants.TOP);
-        settingsTool.setHorizontalTextPosition(SwingConstants.CENTER);
-        toolBar.add(settingsTool);
+        settingsTool.setIcon(Resources.getImage("icons/settings.png")); //sets the settings icon
+        settingsTool.setFont(new Font("Arial", Font.PLAIN, 15)); //sets the font
+        settingsTool.setVerticalTextPosition(SwingConstants.TOP); //set y coordinate position
+        settingsTool.setHorizontalTextPosition(SwingConstants.CENTER); //set x coordinate position
+        toolBar.add(settingsTool); //adds the settings button to prime toolBar
 
-        JButton boldTool = new JButton(new AbstractAction("Bold")
+        JButton boldTool = new JButton(new AbstractAction("Bold") //creates the bold button
         {
-            public void actionPerformed(ActionEvent a)
+            public void actionPerformed(ActionEvent a) //when bold is clicked
             {
                 System.out.println("ToolBar --> Bold. Bolds all text.");
             }
         });
-        boldTool.setIcon(Resources.getImage("icons/bold.png"));
-        boldTool.setFont(new Font("Arial", Font.PLAIN, 15));
-        boldTool.setVerticalTextPosition(SwingConstants.TOP);
-        boldTool.setHorizontalTextPosition(SwingConstants.CENTER);
-        toolBar.add(boldTool);
-        toolBar.setBorder(new EmptyBorder(0, 100, 10, 100));
+        boldTool.setIcon(Resources.getImage("icons/bold.png")); //sets the bold icon
+        boldTool.setFont(new Font("Arial", Font.PLAIN, 15)); //sets the font
+        boldTool.setVerticalTextPosition(SwingConstants.TOP); //set y coordinate position
+        boldTool.setHorizontalTextPosition(SwingConstants.CENTER); //set x coordinate position
+        toolBar.add(boldTool); //adds the bold button to the prime toolBar
+        toolBar.setBorder(new EmptyBorder(0, 100, 10, 100)); //sets the toolBar border
 
-        // Quit Menu item action listener disabled to make testing faster
-        // Add ActionListener to Quit
-        quitItem.addActionListener(new AbstractAction()
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                    PrintWriter pwriter;
-                    try {
-                        pwriter = new PrintWriter("menu-actions.txt");
-                            String actions = "-- Menu Bar: --" + "\n";
-                        actions += "File Menu:" + "\n";
-                        ByteArrayOutputStream ostream = new ByteArrayOutputStream();
-                        PrintStream pstream = new PrintStream(ostream);
-                        PrintStream previous = System.out;
-
-                        System.setOut(pstream);
-                        openItem.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        saveItem.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        printAllItem.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        printRecipesItem.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        printGroceriesItem.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        printFridgeItem.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        copy.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        cut.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        paste.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        search.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        restore.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        favorites.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        expiration.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        lowStock.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        leftovers.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        restorePt.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        metric.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        imperial.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        customary.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        link.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        fontSize.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        resolution.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        invert.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        bold.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        feedback.doClick();
-                        System.setOut(previous);
-
-                        System.setOut(pstream);
-                        donate.doClick();
-                        System.setOut(previous);
-
-                        pwriter.print(ostream.toString());
-                        pwriter.close();
-                        System.exit(0);
-                    } catch (FileNotFoundException e) {
-                        System.out.println("File could not be opened.");
-                        e.printStackTrace();
-                    }
-            }
-        });
-        return toolBar;
+        return toolBar; //returns the rendered toolBar
     }
 }
