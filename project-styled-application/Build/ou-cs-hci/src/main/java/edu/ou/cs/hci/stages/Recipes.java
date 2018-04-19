@@ -2,12 +2,27 @@
 
 
 */
+package edu.ou.cs.hci.stages;
 
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.File;
+import java.io.BufferedReader;
+import java.awt.Font;
+import java.awt.Dimension;
+import javax.swing.border.EmptyBorder;
+import java.awt.GridLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.util.HashMap;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
 import javax.swing.*; //needed for GUI elements
 
 public class Recipes
 {
+	boolean isChanged = false; //has this database been chaged?
 	ArrayList<food> items; //will hold the database
 
     //this constructor creates a fridge database with no entries
@@ -17,7 +32,7 @@ public class Recipes
     }
 
 	//adds a food object to the database
-    public add(food entry)
+    public void add(food entry)
     {
 		items.add(entry);
 		//updates isChanged to show changes
@@ -25,7 +40,7 @@ public class Recipes
     }
 
 	//this well report if changes have been made to the database
-    public changeMade()
+    public boolean changeMade()
     {
         return isChanged;
     }
@@ -49,7 +64,7 @@ public class Recipes
     }
 
     //creates the UI
-    public render()
+    public JPanel render()
     {
         //creates a panel & layout
         JPanel panel = new JPanel(new BorderLayout());
@@ -67,11 +82,9 @@ public class Recipes
 		ListSelectionModel select = recipeTable.getSelectionModel();
 		//adds the recipes table to the entry display
 		entryDisplay.add(new JScrollPane(recipeTable), BorderLayout.WEST);
-		//creates the map of entries
-		HashMap map = CreateRecipeViewer();
 		//create the default displayed "recipe"
 		JTextArea defaultArea = new JTextArea();
-		defaultArea.setEditable(False);
+		defaultArea.setEditable(false);
 		//creates scroll pane
 		JScrollPane recipeViewer = new JScrollPane(defaultArea);
 		//creates the actions listener for the table
@@ -79,13 +92,16 @@ public class Recipes
 		{
       		public void valueChanged(ListSelectionEvent e)
 			{
+				//creates the map of entries
+				HashMap<String, JTextArea> map = CreateRecipeViewer();
 				//get the selected row
 				int row = recipeTable.getSelectedRow();
 				//get the name of the selected recipe
 				String nameSelected = recipeTable.getValueAt(row, 1);
-				//using the name of the selected recipe get the JTable
-				JTable recipeDetails = map.get(nameSelected);
-				//display the selected recipe data
+				//using the name of the selected recipe get the JTextArea
+				JTextArea recipeDetails = map.get(nameSelected);
+				//NOTE does recipeDetails being a text area work?
+				//display the selected recipe text area
 				recipeViewer.setViewportView(recipeDetails);
 
           	}
@@ -135,27 +151,33 @@ public class Recipes
     }
 
 	//this will be used by render to create the recipe viewer
-	private JScrollPane CreateRecipeViewer()
+	private HashMap<String, JTextArea> CreateRecipeViewer()
 	{
 		BufferedReader br; //the reader for all recipe files
-		HashMap map = new HashMap(); //will store the recipe text
+		//will store the recipe text
+		HashMap<String, JTextArea> map = new HashMap<String, JTextArea>();
 
 		for (food thisFood: items) //for all food items
 		{
 			//will hold the text to display
 			JTextArea textBox = new JTextArea();
 			//create a file from this entries file path
-			File recipePath = new file(thisFood.getFile());
-			//make a reader for that file
-			br = new BufferedReader(new FileReader(recipePath));
-			String line = br.readLine(); //read 1st line of the file
-			while(line != null) //while there is another line
-			{
-  				textBox.append(line + "\n"); //add line to the JTextArea
-  				line = br.readLine(); //read the next line
-			}//the text file should now be loaded into textBox
-			//loads the textField into a map accessed by the recipes name
-			map.put(thisFood.getName(), textBox);
+			File recipePath = new File(thisFood.getFile());
+			try{
+				//make a reader for that file
+				br = new BufferedReader(new FileReader(recipePath));
+				String line = br.readLine(); //read 1st line of the file
+				while(line != null) //while there is another line
+				{
+  					textBox.append(line + "\n"); //add line to the JTextArea
+  					line = br.readLine(); //read the next line
+				}//the text file should now be loaded into textBox
+				//loads the textField into a map accessed by the recipes name
+				map.put(thisFood.getName(), textBox);
+			} catch(IOException e){
+				//create an error message if IO problems encountered
+				JOptionPane.showMessageDialog(null,
+				"ERROR: Recipe Viewer encountered an IOException");}
 		}
 
 		return map;
@@ -167,12 +189,12 @@ public class Recipes
 		//this creates the column headers for the table
 		String[] titles = new String[] {"Name"};
 		//fields will store all of the entries in the database for the GUI
-		ArrayList fields = ArrayList();
+		ArrayList<String[]> fields = new ArrayList<String[]>();
 		for (food foodStuff: items) //for each element in items do the following
 		{
 			//creates a single row of the table
-			String[] currentRow = String[1]; //creates an array for this row
-			String[1] = foodStuff.getName(); //sets this row's name
+			String[] currentRow = new String[1]; //creates an array for this row
+			currentRow[1] = foodStuff.getName(); //sets this row's name
 			fields.add(currentRow); //adds this row to the fields ArrayList
 		}
 		//builds a table with titles and a downgraded fields array

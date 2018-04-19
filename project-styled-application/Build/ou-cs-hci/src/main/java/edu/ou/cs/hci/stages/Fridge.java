@@ -5,13 +5,21 @@ as well as create and maintain the database of food objects in the user's
 fridge. It will also work with readr in order to save
 */
 
+package edu.ou.cs.hci.stages;
 
+import java.awt.Font;
+//import layout managers
+import java.awt.GridLayout;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.util.ArrayList; //needed for array lists
 import javax.swing.*; //needed for GUI elements
 
 public class Fridge
 {
     ArrayList<food> items; //will hold the database
-    Boolean isChanged = false;
+    Boolean isChanged = false; //has an entry been changed?
+    Font font = new Font("Lucida Console", Font.PLAIN, 13);
 
     //this constructor creates a fridge database with no entries
     public Fridge()
@@ -20,7 +28,7 @@ public class Fridge
     }
 
     //adds a food object to the database
-    public add(food entry)
+    public void add(food entry)
     {
         items.add(entry);
         //updates isChanged to show changes
@@ -51,7 +59,10 @@ public class Fridge
             out.append(foodStuff.getFavStr()+",");      //sets the line's fav value
             out.append(foodStuff.getName()+",");        //sets the line's name
             out.append(foodStuff.getAmount()+",");      //sets the line's amount
-            out.append(foodStuff.getDaysLeft()+",");    //sets the line's expr value
+            if(Integer.parseInt(foodStuff.getDaysLeft()) > 0) //if the food is not expired
+                out.append(foodStuff.getDaysLeft()+",");    //sets the line's expr value
+            else
+                out.append("Expired"); //if epxired, update field
             out.append(foodStuff.getLeftoverStr()+","); //sets the line's leftvr value
             out.append("\n");   //add a newline before the next line
         }
@@ -59,7 +70,7 @@ public class Fridge
     }
 
     //creates the UI
-    public render()
+    public JPanel render()
     {
         //creates a panel & layout
         JPanel panel = new JPanel(new BorderLayout());
@@ -71,13 +82,14 @@ public class Fridge
         //create a render to be used with the data table
         MyRenderer renderer = new MyRenderer();
         //sets the default values/behaviour of data table
+        //TODO add super calls to fix this?
         fridgeTable.setDefaultRenderer(Object.class, renderer);
 		fridgeTable.getColumnModel().getColumn(0).setMaxWidth(25);
-		fridgeTable.setFont(new Font("Lucida Console", Font.PLAIN, 13));
-		fridgeTable.getTableHeader().setFont(new Font("Lucida Console", Font.PLAIN, 13));
+		fridgeTable.setFont(font);
+		fridgeTable.getTableHeader().setFont(font);
 		fridgeTable.setRowHeight(20);
         //adds the data table to the fridge category panel
-		fridge.add(new JScrollPane(fridgeTable), BorderLayout.CENTER);
+		panel.add(new JScrollPane(fridgeTable), BorderLayout.CENTER);
 
         // ----- FRIDGE TAB FILTER CHECKBOX PANEL ----- //
         //filterPanel will hold all of the filtering options
@@ -124,16 +136,16 @@ public class Fridge
         String[] titles = new String[] {"☆", "Name" ,"Amount",
                                         "Days Left", "Leftovers?"};
         //fields will store all of the entries in the database for the GUI
-        ArrayList fields = ArrayList();
+        ArrayList<String[]> fields = new ArrayList<String[]>();
         for (food foodStuff: items) //for each element in items do the following
         {
             //creates a single row of the table
-            String[] currentRow = String[5]; //creates an array for this row
-            String[0] = foodStuff.getFav();      //sets this row's fav value
-            String[1] = foodStuff.getName();     //sets this row's name
-            String[2] = foodStuff.getAmount();   //sets this row's amount
-            String[3] = foodStuff.getDaysLeft(); //sets this row's expr value
-            String[4] = foodStuff.getLeftover(); //sets this row's leftvr value
+            String[] currentRow = new String[5]; //creates an array for this row
+            currentRow[0] = foodStuff.getFavStr();      //sets this row's fav value
+            currentRow[1] = foodStuff.getName();     //sets this row's name
+            currentRow[2] = foodStuff.getAmount();   //sets this row's amount
+            currentRow[3] = foodStuff.getDaysLeft(); //sets this row's expr value
+            currentRow[4] = foodStuff.getLeftoverStr(); //sets this row's leftvr value
             fields.add(currentRow); //adds this row to the fields ArrayList
         }
         //builds a table with titles and a downgraded fields array

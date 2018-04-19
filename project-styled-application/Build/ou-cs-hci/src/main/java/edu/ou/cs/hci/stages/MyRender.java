@@ -4,6 +4,12 @@
  * and when a red is highlighted it is orange instead of yellow
  * I did a lot of googling and reading to figure this one out
  */
+ package edu.ou.cs.hci.stages;
+
+ import javax.swing.JTable;
+ import java.awt.Component;
+ import javax.swing.table.DefaultTableCellRenderer; //needed to extend
+ import java.awt.Color; //need to handle color operations
 
 class MyRenderer extends DefaultTableCellRenderer
 {

@@ -2,13 +2,16 @@
 
 
 */
-package main.java.edu.ou.cs.hci.stages;
+package edu.ou.cs.hci.stages;
 
+import java.awt.BorderLayout;
+import java.util.ArrayList; //needed for array lists
 import javax.swing.*; //needed for GUI elements
 
 public class Groceries
 {
     ArrayList<food> items; //will hold the database
+    boolean isChanged = false;
 
     //this constructor creates a fridge database with no entries
     public Groceries()
@@ -17,18 +20,17 @@ public class Groceries
     }
 
     //adds a food object to the database
-    public add(food entry)
+    public void add(food entry)
     {
         items.add(entry);
     }
 
     //this well report if changes have been made to the database
-    public changeMade()
+    public boolean changeMade()
     {
-        return isChanged;
         //updates isChanged to show changes
         isChanged = true;
-
+        return isChanged; //returns a value showing changes
     }
 
     //used by readr to create CSV
@@ -54,7 +56,7 @@ public class Groceries
     }
 
     //creates the UI
-    public render()
+    public JPanel render()
     {
         //creates a panel & layout
         JPanel panel = new JPanel(new BorderLayout());
@@ -76,13 +78,13 @@ public class Groceries
         //this creates the column headers for the table
         String[] titles = new String[] {"Name", "Amount"};
         //fields will store all of the entries in the database for the GUI
-        ArrayList fields = ArrayList();
+        ArrayList<String[]> fields = new ArrayList<String[]>();
         for (food foodStuff: items) //for each element in items do the following
         {
             //creates a single row of the table
-            String[] currentRow = String[2]; //creates an array for this row
-            String[0] = foodStuff.getName();     //sets this row's name
-            String[1] = foodStuff.getAmount();   //sets this row's amount
+            String[] currentRow = new String[2]; //creates an array for this row
+            currentRow[0] = foodStuff.getName();     //sets this row's name
+            currentRow[1] = foodStuff.getAmount();   //sets this row's amount
             fields.add(currentRow); //adds this row to the fields ArrayList
         }
         //builds a table with titles and a downgraded fields array

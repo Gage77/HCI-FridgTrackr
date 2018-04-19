@@ -1,22 +1,31 @@
+/*
+This class will read in CSV files, output to CSV files
+and check for changes
+*/
 
+package edu.ou.cs.hci.stages;
+
+import java.io.IOException; //need to check file in/out trys
+import java.io.FileReader; //needed for file reading
+import java.io.BufferedReader; //need for buffered readering
 
 public class readr
 {
     // Private Class Members
     private Fridge fridge;
-    private Recipes recipe;
+    private Recipes recipes;
     private Groceries groceries;
 
     //constructor
     public readr(Fridge fr, Recipes rp, Groceries gr)
     {
         this.fridge = fr;
-        this.recipe = rp;
+        this.recipes = rp;
         this.groceries = gr;
     }
 
     //this will take a file path and load it using helper methods
-    public in(String filePath)
+    public void in(String filePath)
     {
         try
         {
@@ -26,10 +35,8 @@ public class readr
             while (lineIn != null) //if there is text
             {
                 String[] line = lineIn.split(","); //moves data into an array
-
                 //check the lines ID, create the object, & and to database
-                String id; //used to testgroceries
-                switch(line[0]) //compare id's with the first string
+                switch(Integer.parseInt(line[0])) //compare id's with the first string
                 {
                     case 0: groceries.add(food.makeGr(line));//builds grocery
                     case 1: fridge.add(food.makeFrg(line)); //builds fridge food
@@ -38,11 +45,9 @@ public class readr
                 lineIn = br.readLine(); //reads the next line
             }
 
-        } catch (FileNotFoundException e) { //in case of a file not found error
-                e.printStackTrace(); //print stack trace
         } catch (IOException e) { //in case of an IOException
                 e.printStackTrace(); //print stack trace
-        } finally { //always check
+        } finally { //always check  //TODO how to check br from try?
             if (br != null) //if the buffer still has content
             {
                 try {
@@ -60,9 +65,9 @@ public class readr
     {
         //this will store the databases we convert to the CSV format
         StringBuilder output = new StringBuilder();
-        output.append(fridge.out);  //add the fridge database to the CSV
-        output.append(grocery.out); //add the grocery database to the CSV
-        output.append(recipe.out);  //add the recipe database to the CSV
+        output.append(fridge.out());  //add the fridge database to the CSV
+        output.append(groceries.out()); //add the grocery database to the CSV
+        output.append(recipes.out());  //add the recipe database to the CSV
         return (output.toString()); //returns the "file" as a string
     }
 
@@ -70,7 +75,7 @@ public class readr
     public Boolean changeMade()
     {
         //if a change was made to any database
-        if(firdge.changesMade() || recipe.changesMade() || groceries.changesMade())
+        if(fridge.changeMade() || recipes.changeMade() || groceries.changeMade())
         {
             return Boolean.TRUE; //return that changes have been made
         }

@@ -2,11 +2,14 @@
 
 
 */
-package main.java.edu.ou.cs.hci.stages;
+package edu.ou.cs.hci.stages;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.io.FileWriter; //needed for file writing
+import javax.swing.JFileChooser; //needed for file chooser
+import java.awt.event.*; //needed for listeners
 import javax.swing.*; //needed for GUI elements
+import java.io.File; //needed to create a file
+
 
 public class fileMenu
 {
@@ -28,12 +31,12 @@ public class fileMenu
                     //creates the fileChooser
                     JFileChooser fileBox = new JFileChooser();
                     //stores the return of the file chooser after close
-                    int result= jFileChooser.showOpenDialog(this);
+                    int result= fileBox.showOpenDialog(fileBox);
                     //if a file was choosen
                     if(result == JFileChooser.APPROVE_OPTION)
                     {
                         //capture that file
-                        File file=jFileChooser.getSelectedFile();
+                        File file = fileBox.getSelectedFile();
                         //checks to see if the file already exists
                         if(file.exists())
                         {
@@ -48,7 +51,7 @@ public class fileMenu
                         }
                     }//end of overwrite box
                 } //end of try
-                catch(FileNotFoundException e)
+                catch(Exception e)
                 {
                     e.printStackTrace(); //print the stack trace on an error
                 } //end of catch
@@ -65,7 +68,7 @@ public class fileMenu
                     //creates the fileChooser
                     JFileChooser fileBox = new JFileChooser();
                     //stores the return of the file chooser after close
-                    int result = jFileChooser.showSaveDialog(this);
+                    int result = fileBox.showSaveDialog(fileBox);
                     //if a valid path for saving was choosen
                     if(result == JFileChooser.APPROVE_OPTION)
                     {
@@ -81,46 +84,13 @@ public class fileMenu
                         }
                     }
                 } //end of try
-                catch(FileNotFoundException e)
+                catch(Exception e)
                 {
                     e.printStackTrace(); //print the stack trace on an error
                 } //end of catch
             }
         }); //end of save listener
 
-        // ----- Print Menu ----- //
-        //NOTE do we want to get rid of all these print options?
-        JMenuItem printAllItem = new JMenuItem(new AbstractAction("All (CTRL + P)")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("File -> Print -> All (CTRL + P). Prints the full FridgTrackr file.");
-            }
-        });
-        JMenuItem printFridgeItem = new JMenuItem(new AbstractAction("Fridge Stock")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("File -> Print -> Fridge Stock. Prints the current fridge stock.");
-            }
-        });
-        JMenuItem printRecipesItem = new JMenuItem(new AbstractAction("Recipes")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("File -> Print -> Recipes. Prints the currently stored recipes.");
-            }
-        });
-        JMenuItem printGroceriesItem = new JMenuItem(new AbstractAction("Groceries")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("File -> Print -> Groceries. Prints the current grocery list.");
-            }
-        });
-
-        //creates a menu for the print options
-        JMenu printSubmenu = new JMenu("Print");
         //creates the quit option
         JMenuItem quitItem = new JMenuItem(new AbstractAction("Quit	(CTRL + Q)")
         {
@@ -141,7 +111,7 @@ public class fileMenu
                             //creates the fileChooser
                             JFileChooser fileBox = new JFileChooser();
                             //stores the return of the file chooser after close
-                            int result = jFileChooser.showSaveDialog(this);
+                            int result = fileBox.showSaveDialog(fileBox);
                             //if a valid path for saving was choosen
                             if(result == JFileChooser.APPROVE_OPTION)
                             {
@@ -167,42 +137,14 @@ public class fileMenu
             }
         });
 
-        // ----- Print Menu ----- //
-        printSubmenu.add(printAllItem);         //add print all to print menu
-        printSubmenu.add(printFridgeItem);      //add print fridge to print menu
-        printSubmenu.add(printRecipesItem);     //add print recipes to print menu
-        printSubmenu.add(printGroceriesItem);   //add print groceries to print menu
-
         // ----- File Menu ----- //
         JMenu fileMenu = new JMenu("File"); //create the file menu
         fileMenu.add(openItem);     //adds the open option to the file menu
         fileMenu.add(saveItem);     //adds the save option to the file menu
-        fileMenu.add(printSubmenu); //adds the print menu to the file menu
         fileMenu.add(quitItem);     //adds the quit option to the file menu
         menuBar.add(fileMenu);      //adds the file menu to the bar
 
         // ----- Edit menu ----- //
-        JMenuItem copy = new JMenuItem(new AbstractAction("Copy (CTRL + C)")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("Edit -> Copy (CTRL + C). Copies the selection.");
-            }
-        });
-        JMenuItem cut = new JMenuItem(new AbstractAction("Cut (CTRL + X)")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("Edit -> Cut (CTRL + X). Cuts the selection.");
-            }
-        });
-        JMenuItem paste = new JMenuItem(new AbstractAction("Paste (CTRL + V)")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("Edit -> Paste (CTRL + V). Pastes the selection.");
-            }
-        });
         JMenuItem search = new JMenuItem(new AbstractAction("Search (CTRL + F)")
         {
             public void actionPerformed(ActionEvent a)
@@ -215,6 +157,14 @@ public class fileMenu
             public void actionPerformed(ActionEvent a)
             {
                 System.out.println("Edit -> Restore (CTRL + Z). Restores the last deleted item to a limit.");
+            }
+        });
+        JMenuItem restorePt = new JMenuItem(new AbstractAction("Set Restore Point")
+        {
+            public void actionPerformed(ActionEvent a)
+            {
+                System.out.println("Window -> Settings -> Set Restore Point. "
+                        + "Allows the user to set the amount of restores to keep.");
             }
         });
 
@@ -256,61 +206,11 @@ public class fileMenu
 
         // ----- Edit Menu ----- //
         JMenu editMenu = new JMenu("Edit"); //create the edit menu
-        editMenu.add(copy);             //adds the copy option to the edit menu
-        editMenu.add(cut);              //adds the cut option to the edit menu
-        editMenu.add(paste);            //adds the paste option to the edit menu
-        editMenu.addSeparator();        //adds a separator to the edit menu
         editMenu.add(search);           //adds the search option to the edit menu
         editMenu.add(restore);          //adds the restore option to the edit menu
         editMenu.add(filterBySubmenu);  //adds the filter menu to the edit menu
+        editMenu.add(restorePt);        //adds the set restore point to the edit menu
         menuBar.add(editMenu);          //adds the edit menu to the bar
-
-
-        // ----- Settings Menu ----- //
-        JMenuItem restorePt = new JMenuItem(new AbstractAction("Set Restore Point")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("Window -> Settings -> Set Restore Point. "
-                        + "Allows the user to set the amount of restores to keep.");
-            }
-        });
-        // ----- Unit Menu ----- //
-        JMenuItem metric = new JMenuItem(new AbstractAction("Metric")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("Window -> Settings -> Set Units -> Metric. "
-                        + "Allows the user to set the units of measurement to the metric system.");
-            }
-        });
-        JMenuItem imperial = new JMenuItem(new AbstractAction("Imperial")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("Window -> Settings -> Set Units -> Imperial. "
-                        + "Allows the user to set the units of measurement to the imperial system.");
-            }
-        });
-        JMenuItem customary = new JMenuItem(new AbstractAction("Customary")
-        {
-            public void actionPerformed(ActionEvent a)
-            {
-                System.out.println("Window -> Settings -> Set Units -> Customary. "
-                        + "Allows the user to set the units of measurement to the customary system.");
-            }
-        });
-        // ----- Units Menu ----- //
-        JMenu units = new JMenu("Set units"); //creates the units menu
-        units.add(metric);      //adds the metric option to the units menu
-        units.add(imperial);    //adds the imperial option to the units menu
-        units.add(customary);   //adds the customary option to the units menu
-
-        // ----- Settings Menu ----- //
-        JMenu settings = new JMenu("Settings"); //creates the settings menu
-        settings.add(units);        //adds the set units option to the settings menu
-        settings.add(restorePt);    //adds the set restore point to the settings menu
-        menuBar.add(settings);      //adds the settings menu to the bar
 
         // ----- Help menu ----- //
         JMenuItem link = new JMenuItem(new AbstractAction("Link (CTRL + ?)")
@@ -332,6 +232,13 @@ public class fileMenu
             public void actionPerformed(ActionEvent a)
             {
                 System.out.println("Help -> Donate (CTRL + $). Allows the user to donate.");
+            }
+        });
+        JMenuItem about = new JMenuItem(new AbstractAction("About")
+        {
+            public void actionPerformed(ActionEvent a)
+            {
+                aboutApp.render(); //creates the about window
             }
         });
 
@@ -370,12 +277,15 @@ public class fileMenu
         accessibility.add(fontSize);    //adds the font size option to the menu
         accessibility.add(invert);      //adds the invert option to the menu
         accessibility.add(bold);        //adds the bold text option to the menu
+        accessibility.add(resolution);  //adds the resolution option to the menu
 
         // ----- Help Menu ----- //
         JMenu help = new JMenu("Help"); //creates the help menu
         help.add(accessibility);    //adds accessibility option to the help menu
+        help.add(about);            //adds about option to the help menu
         help.add(feedback);         //adds feedback option to the help menu
         help.add(donate);           //adds donate option to the help menu
+        help.add(link);             //adds the link option to the help menu
         menuBar.add(help);          //adds the help menu to the bar
 
         //returns the finished menu

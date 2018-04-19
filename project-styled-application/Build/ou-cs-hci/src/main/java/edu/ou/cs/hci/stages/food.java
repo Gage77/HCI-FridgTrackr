@@ -4,6 +4,11 @@ The food class will be used to create food objects that will
 be the entries on each of our databases
 
 */
+
+package edu.ou.cs.hci.stages;
+
+import java.time.LocalDate; //needed for checking days left
+
 public class food
 {
     //private class members
@@ -11,12 +16,12 @@ public class food
     private String name = null;
     private String amount = null;
 
-    private boolean isFav = null;
-    private boolean isLeftover = null;
-    private String date = null; //TODO change to some other data type
+    private boolean isFav = false;
+    private boolean isLeftover = false;
+    private String date = null;
 
     private String filePath = null;
-    private String ingredients = null;
+    private String ingredeints = null;
     private String imagePath = null;
 
     //constructor for groceries
@@ -36,27 +41,27 @@ public class food
         this.amount = amount;   //set amount to the given amount
         this.date = expirDate;  //set date to the given expiration date
 
-        switch(fav) //compare fav string to parse boolean
+        switch(Integer.parseInt(fav)) //compare fav string to parse boolean
         {
-            case 0: this.isFav = False; //if item is not a favorite
-            case 1: this.isFav = True; //if item is a favorite
+            case 0: this.isFav = false; //if item is not a favorite
+            case 1: this.isFav = true; //if item is a favorite
         }
 
-        switch(leftover) //compare leftover string to parse boolean
+        switch(Integer.parseInt(leftover)) //compare leftover string to parse boolean
         {
-            case 0: this.isLeftover = False; //if item is not a leftover
-            case 1: this.isLeftover = True; //if item is a leftover
+            case 0: this.isLeftover = false; //if item is not a leftover
+            case 1: this.isLeftover = true; //if item is a leftover
         }
 
     }
 
     //constructor for recipes
-    public food(String id, String name, String filePath, String ingredients, String imagePath)
+    public food(String id, String name, String filePath, String ingredeints, String imagePath)
     {
         this.id = id;                       //set the id to the given id
         this.name = name;                   //set name to the given name
         this.filePath = filePath;           //set the filePath to the recipe txt
-        this.ingredients = ingredients;     //set the value of ingredients
+        this.ingredeints = ingredeints;     //set the value of ingredients
         this.imagePath = imagePath;         //set the filePath to food image
     }
 
@@ -72,16 +77,31 @@ public class food
     {
         //call the fridge item constructor
         return(new food(lineIn[0],lineIn[1],lineIn[2],
-                        lineIn[3],line[4],line[5]));
+                        lineIn[3],lineIn[4],lineIn[5]));
     }
 
     //makes a recipes entry from a line of the CSV
-    public static makeRcp(String[] lineIn)
+    public static food makeRcp(String[] lineIn)
     {
         //call the recipe item constructor
-        return(new food(lineIn[0], lineIn[1], lineIn[2], lineIn[3], line[4]));
+        return(new food(lineIn[0], lineIn[1], lineIn[2], lineIn[3], lineIn[4]));
     }
-    
+
+    //this will compute the days left before the food is expired
+    public String getDaysLeft()
+    {
+        //since the date format is mm/dd/yy this "parses" date string
+        String[] dateArray = date.split("/");
+        //creates a LocalDate to store the expiration date
+        LocalDate expirDate = LocalDate.of(Integer.parseInt(dateArray[2]),
+                                           Integer.parseInt(dateArray[0]),
+                                           Integer.parseInt(dateArray[1]));
+        //gets current date
+        LocalDate today = LocalDate.now();
+        //how many days until the food is expired? Return value
+        return Integer.toString(expirDate.until(today).getDays());
+    }
+
     //getters for food
     public String getId()
     {
@@ -130,7 +150,7 @@ public class food
 
     public String getIngredients()
     {
-        return id;
+        return ingredeints;
     }
 
     public String getImage()
