@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: ou-cs-cg
+Implementation-Version: 1.0.0
+provider: tribe7.net
+permissions: all-permissions
+codebase: *
+Main-Class: edu.ou.cs.hci.example.Base
+

@@ -1,0 +1,73 @@
+. {
+  text-decoration: none;
+  background-color: #F5D5FA;
+}
+
+.banner {
+  background-color: #ff6347;
+}
+
+.banner img {
+  float: left;
+}
+
+/*Make header and image on same line*/
+.banner h1 {
+  color: #ffffff;
+  position: relative;
+  top: 10px;
+  right: 30px;
+}
+
+.banner h3 {
+  color: #ffffff;
+  text-align: center;
+}
+
+.description {
+  width: 100%;
+}
+
+.description p {
+  text-align: left;
+}
+
+.description h3 {
+  text-align: left;
+}
+
+.mentions a {
+  color: #e67e00;
+}
+
+.footer {
+  background-color: #ff6347;
+}
+
+.footer h3 {
+  text-align: left;
+  color: #ffffff;
+}
+
+.footer ul {
+
+}
+
+.footer ul li {
+  color: #ffffff;
+}
+
+body {
+    background-color: #F5D5FA;
+}
+
+h1 {
+    color: #808080;
+    text-align: center;
+}
+
+p {
+    font-family: monospace;
+    font-size: 14px;
+    text-align: center;
+}

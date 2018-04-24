@@ -35,20 +35,9 @@ public class fileMenu
                     //if a file was choosen
                     if(result == JFileChooser.APPROVE_OPTION)
                     {
-                        //capture that file
-                        File file = fileBox.getSelectedFile();
-                        //checks to see if the file already exists
-                        if(file.exists())
-                        {
-                            //shows the overwrite box and prompts the user to select another file
-                            JOptionPane.showConfirmDialog(null,"The file exists, please select another",
-                                                          "Existing file",JOptionPane.OK_OPTION);
-                        }
-                        else //if the file does not exist, read it in
-                        {
-                            //pass the readr the file path so it can load
-                            buff.in(file.getPath());
-                        }
+                      //capture that file
+                      File file = fileBox.getSelectedFile();
+                      buff.in(file.getPath());
                     }//end of overwrite box
                 } //end of try
                 catch(Exception e)
